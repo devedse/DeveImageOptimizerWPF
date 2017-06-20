@@ -1,0 +1,59 @@
+﻿<Window x:Class="DeveImageOptimizerWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="DeveImageOptimizer" Height="350" Width="525">
+    <Grid>
+        <TabControl x:Name="tabControl">
+            <TabItem Header="Main"  DataContext="{Binding Main, Source={StaticResource Locator}}">
+                <Grid Background="AliceBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Path:"></Label>
+                    <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Text="{Binding WindowState.ProcessingDirectory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Button Grid.Column="1" Content="Browse"></Button>
+                    </Grid>
+                    <Button Grid.Row="2" Content="Go" Command="{Binding GoCommand}"/>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Grid.Column="0" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}"></ListBox>
+                        <ListBox Grid.Column="1" ItemsSource="{Binding FilesProcessingState.FailedFiles}"></ListBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Configuration"  DataContext="{Binding Settings, Source={StaticResource Locator}}">
+                <Grid Background="AliceBlue">
+                    <ScrollViewer Margin="0,0,0,35">
+                        <StackPanel>
+                            <Label Content="FileOptimizer Path:"></Label>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding UserSettingsData.FileOptimizerPath, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <Button Grid.Column="1" Content="Browse"></Button>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Button Content="Save" Height="35" VerticalAlignment="Bottom" Command="{Binding SaveCommand}" IsEnabled="{Binding UserSettingsData.IsChanged}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
