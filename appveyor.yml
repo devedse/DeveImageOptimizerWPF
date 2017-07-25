@@ -1,0 +1,23 @@
+version: 1.0.{build}
+skip_tags: true
+configuration: Release
+
+before_build:
+  - ps: .\Scripts\set-version.ps1
+  - cmd: nuget restore
+
+build:
+  verbosity: minimal
+
+after_build:
+  - ps: .\Scripts\GoRepack.ps1
+
+artifacts:
+  - path: Scripts\Output\*.exe
+    name: droppackage
+
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: do7S++r1rE5E3IZujCoMONsWYJNF7eoRoPyJbxSD851I850OlEq0gsHH/Tji7o00
+    artifact: droppackage
