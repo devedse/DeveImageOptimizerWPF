@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
-    [ImplementPropertyChanged]
+    [AddINotifyPropertyChangedInterface]
     public class SettingsViewModel : ViewModelBase
     {
         public UserSettingsData UserSettingsData { get; private set; }

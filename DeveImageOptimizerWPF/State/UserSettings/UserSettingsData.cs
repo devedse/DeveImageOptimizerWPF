@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace DeveImageOptimizerWPF.State.UserSettings
 {
     [Serializable]
-    [ImplementPropertyChanged]
+    [AddINotifyPropertyChangedInterface]
     public class UserSettingsData : IChangable
     {
         public String FileOptimizerPath { get; set; } = string.Empty;
