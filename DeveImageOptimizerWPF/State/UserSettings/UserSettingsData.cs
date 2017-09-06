@@ -9,7 +9,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
     [AddINotifyPropertyChangedInterface]
     public class UserSettingsData : IChangable
     {
-        public String FileOptimizerPath { get; set; } = string.Empty;
+        public String FileOptimizerPath { get; set; } = @"C:\Program Files\FileOptimizer\FileOptimizer64.exe";
         [XmlIgnore]
         public bool IsChanged { get; set; }
     }

@@ -1,6 +1,7 @@
 using DeveImageOptimizer;
 using DeveImageOptimizer.FileProcessing;
 using DeveImageOptimizer.Helpers;
+using DeveImageOptimizer.State;
 using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.MainWindowState;
 using GalaSoft.MvvmLight;
@@ -52,8 +53,8 @@ namespace DeveImageOptimizerWPF.ViewModel
         public ICommand GoCommand { get; private set; }
         private async Task GoCommandImp()
         {
-            var fileOptimizer = new FileOptimizerProcessor(StaticState.UserSettingsManager.State.FileOptimizerPath, Path.Combine(FolderHelperMethods.AssemblyDirectory.Value, Constants.TempDirectoryName));
-            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState);
+            var fileOptimizer = new FileOptimizerProcessor(StaticState.UserSettingsManager.State.FileOptimizerPath, Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, Constants.TempDirectoryName));
+            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(false));
             await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
         }
     }

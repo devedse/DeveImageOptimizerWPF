@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
 {
-    public class FilesProcessingState : INotifyPropertyChanged, IFilesProcessingState
+    public class FilesProcessingState : INotifyPropertyChanged, IFilesProcessedListener
     {
         public ObservableCollection<string> ProcessedFiles { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> FailedFiles { get; set; } = new ObservableCollection<string>();

@@ -31,8 +31,23 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox Grid.Column="0" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}"></ListBox>
-                        <ListBox Grid.Column="1" ItemsSource="{Binding FilesProcessingState.FailedFiles}"></ListBox>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Success"></Label>
+                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}"></ListBox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Failed"></Label>
+                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.FailedFiles}"></ListBox>
+                        </Grid>
+
                     </Grid>
                 </Grid>
             </TabItem>
