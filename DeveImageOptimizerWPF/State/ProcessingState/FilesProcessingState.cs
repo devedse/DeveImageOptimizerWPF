@@ -16,18 +16,19 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void AddProcessedFile(string file)
+        public void AddProcessedFile(OptimizedFileResult optimizedFileResult)
         {
-            ProcessedFiles.Add(file);
-            OnPropertyChanged(nameof(ProcessedFiles));
+            if (optimizedFileResult.Successful)
+            {
+                ProcessedFiles.Add(optimizedFileResult.Path);
+                OnPropertyChanged(nameof(ProcessedFiles));
+            }
+            else
+            {
+                FailedFiles.Add(optimizedFileResult.Path);
+                OnPropertyChanged(nameof(FailedFiles));
+            }
         }
-
-        public void AddFailedFile(string file)
-        {
-            FailedFiles.Add(file);
-            OnPropertyChanged(nameof(FailedFiles));
-        }
-
 
         // Create the OnPropertyChanged method to raise the event
         public virtual void OnPropertyChanged(string name)
