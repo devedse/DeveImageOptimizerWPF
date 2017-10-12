@@ -32,3 +32,4 @@ Foreach-Object {
 Write-Host $arguments
 
 & $ilrepackexe $arguments
+if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
