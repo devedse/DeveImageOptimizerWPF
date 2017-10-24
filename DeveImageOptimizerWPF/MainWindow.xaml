@@ -8,6 +8,7 @@
         Title="DeveImageOptimizer" Height="350" Width="525">
     <Window.Resources>
         <l:KbConverter x:Key="kbConverter"/>
+        <l:OptimizedSizeConverter x:Key="optimizedSizeConverter"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -57,7 +58,7 @@
                                 <Label Content="Optimized Size:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizedSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
                                 <Label Content="Optimized Size:"></Label>
-                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizedSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedSizeConverter}}" IsReadOnly="True"></TextBox>
 
                             </StackPanel>
                         </Grid>
