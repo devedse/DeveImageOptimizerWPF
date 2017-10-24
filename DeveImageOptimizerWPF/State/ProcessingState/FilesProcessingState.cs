@@ -11,23 +11,15 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 {
     public class FilesProcessingState : INotifyPropertyChanged, IFilesProcessedListener
     {
-        public ObservableCollection<string> ProcessedFiles { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<string> FailedFiles { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<OptimizedFileResult> ProcessedFiles { get; set; } = new ObservableCollection<OptimizedFileResult>();
+        public OptimizedFileResult SelectedProcessedFile { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void AddProcessedFile(OptimizedFileResult optimizedFileResult)
         {
-            if (optimizedFileResult.Successful)
-            {
-                ProcessedFiles.Add(optimizedFileResult.Path);
-                OnPropertyChanged(nameof(ProcessedFiles));
-            }
-            else
-            {
-                FailedFiles.Add(optimizedFileResult.Path);
-                OnPropertyChanged(nameof(FailedFiles));
-            }
+            ProcessedFiles.Add(optimizedFileResult);
+            OnPropertyChanged(nameof(ProcessedFiles));
         }
 
         // Create the OnPropertyChanged method to raise the event

@@ -3,8 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:DeveImageOptimizerWPF.Converters"
         mc:Ignorable="d"
         Title="DeveImageOptimizer" Height="350" Width="525">
+    <Window.Resources>
+        <l:KbConverter x:Key="kbConverter"/>
+    </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
             <TabItem Header="Main"  DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -37,15 +41,25 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Content="Success"></Label>
-                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}"></ListBox>
+                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}" SelectedItem="{Binding FilesProcessingState.SelectedProcessedFile}"></ListBox>
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Failed"></Label>
-                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.FailedFiles}"></ListBox>
+                            <Label Grid.Row="0" Content="Details"></Label>
+                            <StackPanel Grid.Row="1">
+                                <Label Content="Path:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.Path, Mode=OneWay}" IsReadOnly="True"></TextBox>
+                                <Label Content="Original Size:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OriginalSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
+                                <Label Content="Optimized Size:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizedSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
+                                <Label Content="Optimized Size:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizedSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
+
+                            </StackPanel>
                         </Grid>
 
                     </Grid>

@@ -6,6 +6,7 @@ using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.MainWindowState;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -32,7 +33,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         public MainViewModel()
         {
             WindowState = StaticState.WindowStateManager.State;
-            FilesProcessingState = StaticState.FilesProcessingStateManager.State;
+            FilesProcessingState = new FilesProcessingState();
 
             WindowState.PropertyChanged += ProcessingStateData_PropertyChanged;
             FilesProcessingState.PropertyChanged += FilesProcessingState_PropertyChanged;
@@ -42,7 +43,7 @@ namespace DeveImageOptimizerWPF.ViewModel
 
         private void FilesProcessingState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            StaticState.FilesProcessingStateManager.Save();
+            //StaticState.FilesProcessingStateManager.Save();
         }
 
         private void ProcessingStateData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -54,7 +55,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         private async Task GoCommandImp()
         {
             var fileOptimizer = new FileOptimizerProcessor(StaticState.UserSettingsManager.State.FileOptimizerPath, Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, Constants.TempDirectoryName));
-            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(false));
+            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(true));
             await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
         }
     }
