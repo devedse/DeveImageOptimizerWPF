@@ -57,7 +57,7 @@
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OriginalSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
                                 <Label Content="Optimized Size:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizedSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
-                                <Label Content="Optimized Size:"></Label>
+                                <Label Content="Size reduced by:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedSizeConverter}}" IsReadOnly="True"></TextBox>
 
                             </StackPanel>
