@@ -9,6 +9,7 @@
     <Window.Resources>
         <l:KbConverter x:Key="kbConverter"/>
         <l:OptimizedSizeConverter x:Key="optimizedSizeConverter"/>
+        <l:OptimizedSizeCollectionConverter x:Key="optimizedSizeConverterFullState"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -33,6 +34,7 @@
                     <Button Grid.Row="2" Content="Go" Command="{Binding GoCommand}"/>
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -61,8 +63,21 @@
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedSizeConverter}}" IsReadOnly="True"></TextBox>
 
                             </StackPanel>
+                            
                         </Grid>
+                        <Grid Grid.Column="2" Margin="10,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Total"></Label>
+                            <StackPanel Grid.Row="1">
+                                <Label Content="Size reduced by:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.ProcessedFiles, Mode=OneWay, Converter={StaticResource optimizedSizeConverterFullState}}" IsReadOnly="True"></TextBox>
 
+                            </StackPanel>
+
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>

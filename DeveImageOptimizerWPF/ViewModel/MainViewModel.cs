@@ -55,7 +55,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         private async Task GoCommandImp()
         {
             var fileOptimizer = new FileOptimizerProcessor(StaticState.UserSettingsManager.State.FileOptimizerPath, Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, Constants.TempDirectoryName));
-            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(true));
+            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(false));
             await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
         }
     }

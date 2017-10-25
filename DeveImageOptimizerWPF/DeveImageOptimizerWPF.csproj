@@ -229,6 +229,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\OptimizedSizeConverterFullState.cs" />
     <Compile Include="Converters\OptimizedSizeConverter.cs" />
     <Compile Include="Converters\KbConverter.cs" />
     <Compile Include="State\IChangable.cs" />
