@@ -1,11 +1,6 @@
 ﻿using DeveImageOptimizer.State;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
 {
@@ -25,11 +20,7 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
         // Create the OnPropertyChanged method to raise the event
         public virtual void OnPropertyChanged(string name)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
