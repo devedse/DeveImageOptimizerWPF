@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $relativePathToReleaseFolder = '..\DeveImageOptimizerWPF\bin\Release'
-$relativePathToILRepackExe = '..\packages\ILRepack.2.0.14\tools\ILRepack.exe'
+$relativePathToILRepackExe = '..\packages\ILRepack.2.0.15\tools\ILRepack.exe'
 $fileNameOfPrimaryExe = 'DeveImageOptimizerWPF.exe'
 $relativePathToOutputFolder = 'Output'
 
