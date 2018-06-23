@@ -59,8 +59,8 @@
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="DeveImageOptimizer, Version=1.0.171.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeveImageOptimizer.1.0.171\lib\netstandard1.5\DeveImageOptimizer.dll</HintPath>
+    <Reference Include="DeveImageOptimizer, Version=1.0.172.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeveImageOptimizer.1.0.172\lib\netstandard1.5\DeveImageOptimizer.dll</HintPath>
     </Reference>
     <Reference Include="ExifLibrary, Version=1.1.18.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExifLibNet.1.1.18\lib\netstandard1.3\ExifLibrary.dll</HintPath>
