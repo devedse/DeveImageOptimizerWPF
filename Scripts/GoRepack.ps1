@@ -14,7 +14,10 @@ $deveimageoptimizerexe = Join-Path $releaseFolder $fileNameOfPrimaryExe -Resolve
 $outputfolder = Join-Path $directorypath $relativePathToOutputFolder
 $outputexe = Join-Path $outputfolder $fileNameOfPrimaryExe
 
-New-Item -ItemType directory -Path $outputfolder
+If(!(test-path $outputfolder))
+{
+      New-Item -ItemType Directory -Force -Path $outputfolder
+}
 
 Write-Host $directorypath;
 Write-Host $ilrepackexe;
