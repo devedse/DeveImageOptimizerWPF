@@ -29,7 +29,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0" Text="{Binding WindowState.ProcessingDirectory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <Button Grid.Column="1" Content="Browse"></Button>
+                        <Button Grid.Column="1" Content="Browse" Command="{Binding BrowseCommand}"></Button>
                     </Grid>
                     <Button Grid.Row="2" Content="Go" Command="{Binding GoCommand}"/>
                     <Grid Grid.Row="3">
@@ -96,7 +96,7 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Grid.Column="0" Text="{Binding UserSettingsData.FileOptimizerPath, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Button Grid.Column="1" Content="Browse"></Button>
+                                <Button Grid.Column="1" Content="Browse" Command="{Binding BrowseCommand}"></Button>
                             </Grid>
                             <CheckBox Content="Hide FileOptimizer Window" IsChecked="{Binding UserSettingsData.HideFileOptimizerWindow, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
                             <CheckBox Content="Force optimize even if image is already optimized" IsChecked="{Binding UserSettingsData.ForceOptimizeEvenIfAlreadyOptimized, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>

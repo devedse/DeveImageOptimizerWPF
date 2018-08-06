@@ -6,6 +6,7 @@ using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.MainWindowState;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Ookii.Dialogs.Wpf;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace DeveImageOptimizerWPF.ViewModel
             FilesProcessingState.PropertyChanged += FilesProcessingState_PropertyChanged;
 
             GoCommand = new RelayCommand(async () => await GoCommandImp(), () => true);
+            BrowseCommand = new RelayCommand(() => BrowseCommandImp(), () => true);
         }
 
         private void FilesProcessingState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -59,6 +61,16 @@ namespace DeveImageOptimizerWPF.ViewModel
             var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, Constants.TempDirectoryName), !state.HideFileOptimizerWindow);
             var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(state.ForceOptimizeEvenIfAlreadyOptimized));
             await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
+        }
+
+        public ICommand BrowseCommand { get; private set; }
+        private void BrowseCommandImp()
+        {
+            var folderDialog = new VistaFolderBrowserDialog();
+            if (folderDialog.ShowDialog() == true)
+            {
+                WindowState.ProcessingDirectory = folderDialog.SelectedPath;
+            }
         }
     }
 }
