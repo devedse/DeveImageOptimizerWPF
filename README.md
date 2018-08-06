@@ -21,6 +21,7 @@ This tool has some advantages/differences over the GUI for FileOptimizer:
 | 6 | Packing the whole build into one usable exe file (As of version 1.0.46) | 100% |
 
 Basically as of version 1.0.46 this tool is fully usable. You can download the exe file from the releases page which can be ran if FileOptimizer is also installed.
+
 The reason the .exe file is quite big is because it includes the full LibVips library to do JPEG conversion to do accurate comparison.
 
 ## Screenshot
