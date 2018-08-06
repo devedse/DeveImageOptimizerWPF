@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:DeveImageOptimizerWPF.Converters"
         mc:Ignorable="d"
-        Title="DeveImageOptimizer" Height="350" Width="525">
+        Title="DeveImageOptimizer" Height="450" Width="600">
     <Window.Resources>
         <l:KbConverter x:Key="kbConverter"/>
-        <l:OptimizedSizeConverter x:Key="optimizedSizeConverter"/>
-        <l:OptimizedSizeCollectionConverter x:Key="optimizedSizeConverterFullState"/>
+        <l:OptimizedFileResultToSizeConverter x:Key="optimizedFileResultToSizeConverter"/>
+        <l:ObservableCollectionOptimizedFileResultToSizeConverter x:Key="observableCollectionOptimizedFileResultToSizeConverter"/>
+        <l:ToColorConverter x:Key="toColorConverter"/>
+        <l:OptimizedFileResulToErrorStringConverter x:Key="optimizedFileResulToErrorStringConverter"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -43,8 +45,22 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Success"></Label>
-                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}" SelectedItem="{Binding FilesProcessingState.SelectedProcessedFile}"></ListBox>
+                            <Label Grid.Row="0" Content="Processed files"></Label>
+                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}" SelectedItem="{Binding FilesProcessingState.SelectedProcessedFile}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="14" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Rectangle Fill="{Binding Successful, Mode=OneWay, Converter={StaticResource toColorConverter}}" />
+                                            <TextBlock Margin="10,0,0,0" Grid.Column="1" Text="{Binding RelativePath}" />
+                                            <!--<ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />-->
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -60,8 +76,9 @@
                                 <Label Content="Optimized Size:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizedSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
                                 <Label Content="Size reduced by:"></Label>
-                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedSizeConverter}}" IsReadOnly="True"></TextBox>
-
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedFileResultToSizeConverter}}" IsReadOnly="True"></TextBox>
+                                <Label Content="Error messages:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedFileResulToErrorStringConverter}}" IsReadOnly="True"></TextBox>
                             </StackPanel>
 
                         </Grid>
@@ -73,7 +90,7 @@
                             <Label Grid.Row="0" Content="Total"></Label>
                             <StackPanel Grid.Row="1">
                                 <Label Content="Size reduced by:"></Label>
-                                <TextBox Text="{Binding FilesProcessingState.ProcessedFiles, Mode=OneWay, Converter={StaticResource optimizedSizeConverterFullState}}" IsReadOnly="True"></TextBox>
+                                <TextBox Text="{Binding FilesProcessingState.ProcessedFiles, Mode=OneWay, Converter={StaticResource observableCollectionOptimizedFileResultToSizeConverter}}" IsReadOnly="True"></TextBox>
 
                             </StackPanel>
 

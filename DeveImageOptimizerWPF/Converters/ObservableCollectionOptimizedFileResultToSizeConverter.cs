@@ -3,11 +3,13 @@ using System.Globalization;
 using System.Windows.Data;
 using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace DeveImageOptimizerWPF.Converters
 {
-    [ValueConversion(typeof(OptimizedFileResult), typeof(string))]
-    public sealed class OptimizedSizeConverter : IValueConverter
+    [ValueConversion(typeof(ObservableCollection<OptimizedFileResult>), typeof(string))]
+    public sealed class ObservableCollectionOptimizedFileResultToSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -15,8 +17,9 @@ namespace DeveImageOptimizerWPF.Converters
             {
                 return string.Empty;
             }
-            var ofr = (OptimizedFileResult)value;
-            return ValuesToStringHelper.BytesToString(ofr.OriginalSize - ofr.OptimizedSize);
+            var ofr = (ObservableCollection<OptimizedFileResult>)value;
+            var totalOptimizedSize = ofr.Sum(t => t.OriginalSize - t.OptimizedSize);
+            return ValuesToStringHelper.BytesToString(totalOptimizedSize);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

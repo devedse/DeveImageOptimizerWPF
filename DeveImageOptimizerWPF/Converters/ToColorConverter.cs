@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using DeveImageOptimizer.Helpers;
+using System.Windows.Media;
 using DeveImageOptimizer.State;
-using System.Linq;
-using System.Collections.ObjectModel;
 
 namespace DeveImageOptimizerWPF.Converters
 {
-    [ValueConversion(typeof(ObservableCollection<OptimizedFileResult>), typeof(string))]
-    public sealed class OptimizedSizeCollectionConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(string))]
+    public sealed class ToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,9 +15,15 @@ namespace DeveImageOptimizerWPF.Converters
             {
                 return string.Empty;
             }
-            var ofr = (ObservableCollection<OptimizedFileResult>)value;
-            var totalOptimizedSize = ofr.Sum(t => t.OriginalSize - t.OptimizedSize);
-            return ValuesToStringHelper.BytesToString(totalOptimizedSize);
+            var ofr = (bool)value;
+            if (ofr)
+            {
+                return Brushes.LightGreen;
+            }
+            else
+            {
+                return Brushes.Red;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
