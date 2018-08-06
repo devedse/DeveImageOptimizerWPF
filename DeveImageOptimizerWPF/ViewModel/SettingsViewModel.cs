@@ -1,4 +1,5 @@
-﻿using DeveImageOptimizerWPF.State;
+﻿using DeveImageOptimizerWPF.Helpers;
+using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -38,18 +39,12 @@ namespace DeveImageOptimizerWPF.ViewModel
         public ICommand BrowseCommand { get; private set; }
         private void BrowseCommandImp()
         {
-            var startDir = UserSettingsData.FileOptimizerPath;
-
-            while (!Directory.Exists(startDir) && !string.IsNullOrWhiteSpace(startDir))
-            {
-                startDir = Path.GetDirectoryName(startDir);
-            }
-
             var fileDialog = new OpenFileDialog()
             {
                 Filter = "FileOptimizer (FileOptimizer.exe,FileOptimizer64.exe)|FileOptimizer.exe;FileOptimizer64.exe|All files (*.*)|*.*"
             };
 
+            string startDir = InitialDirFinder.FindStartingDirectoryBasedOnInput(UserSettingsData.FileOptimizerPath);
             if (Directory.Exists(startDir))
             {
                 fileDialog.InitialDirectory = startDir;

@@ -2,6 +2,7 @@ using DeveImageOptimizer;
 using DeveImageOptimizer.FileProcessing;
 using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
+using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.MainWindowState;
 using GalaSoft.MvvmLight;
@@ -67,6 +68,13 @@ namespace DeveImageOptimizerWPF.ViewModel
         private void BrowseCommandImp()
         {
             var folderDialog = new VistaFolderBrowserDialog();
+
+            string startDir = InitialDirFinder.FindStartingDirectoryBasedOnInput(WindowState.ProcessingDirectory);
+            if (Directory.Exists(startDir))
+            {
+                folderDialog.SelectedPath = startDir;
+            }
+
             if (folderDialog.ShowDialog() == true)
             {
                 WindowState.ProcessingDirectory = folderDialog.SelectedPath;
