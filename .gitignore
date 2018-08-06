@@ -308,3 +308,4 @@ OpenCover/
 # Ignored FileOptimizerFiles just incase
 /Scripts/FileOptimizerFull.7z.exe
 /Scripts/FileOptimizer
+/Scripts/Output
