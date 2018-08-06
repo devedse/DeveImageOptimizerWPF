@@ -237,9 +237,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ObservableCollectionOptimizedFileResultToTotalSizeAfterConverter.cs" />
+    <Compile Include="Converters\ObservableCollectionOptimizedFileResultToTotalSizeBeforeConverter.cs" />
     <Compile Include="Converters\OptimizedFileResulToErrorStringConverter.cs" />
     <Compile Include="Converters\ToColorConverter.cs" />
-    <Compile Include="Converters\ObservableCollectionOptimizedFileResultToSizeConverter.cs" />
+    <Compile Include="Converters\ObservableCollectionOptimizedFileResultToSizeReducedConverter.cs" />
     <Compile Include="Converters\OptimizedFileResultToSizeConverter.cs" />
     <Compile Include="Converters\KbConverter.cs" />
     <Compile Include="Helpers\InitialDirFinder.cs" />

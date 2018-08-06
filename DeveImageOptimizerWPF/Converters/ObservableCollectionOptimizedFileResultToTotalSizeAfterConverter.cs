@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 namespace DeveImageOptimizerWPF.Converters
 {
     [ValueConversion(typeof(ObservableCollection<OptimizedFileResult>), typeof(string))]
-    public sealed class ObservableCollectionOptimizedFileResultToSizeConverter : IValueConverter
+    public sealed class ObservableCollectionOptimizedFileResultToTotalSizeAfterConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -18,7 +18,7 @@ namespace DeveImageOptimizerWPF.Converters
                 return string.Empty;
             }
             var ofr = (ObservableCollection<OptimizedFileResult>)value;
-            var totalOptimizedSize = ofr.Sum(t => t.OriginalSize - t.OptimizedSize);
+            var totalOptimizedSize = ofr.Sum(t => t.OptimizedSize);
             return ValuesToStringHelper.BytesToString(totalOptimizedSize);
         }
 
