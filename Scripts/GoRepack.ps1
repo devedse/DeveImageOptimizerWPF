@@ -24,6 +24,7 @@ Write-Host $ilrepackexe;
 
 $arguments = @();
 
+$arguments += "/log"
 $arguments += "/out:""$($outputexe)""";
 $arguments += """$($deveimageoptimizerexe)""";
 
