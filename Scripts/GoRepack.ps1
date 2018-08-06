@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $relativePathToReleaseFolder = '..\DeveImageOptimizerWPF\bin\Release'
-$relativePathToILRepackExe = '..\packages\ILRepack.2.0.16\tools\ILRepack.exe'
+$relativePathToILRepackExe = '..\packages\ILMerge.2.14.1208\tools\ILMerge.exe'
 $fileNameOfPrimaryExe = 'DeveImageOptimizerWPF.exe'
 $relativePathToOutputFolder = 'Output'
 
