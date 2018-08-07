@@ -59,11 +59,11 @@
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="DeveImageOptimizer, Version=1.0.181.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeveImageOptimizer.1.0.181\lib\netstandard2.0\DeveImageOptimizer.dll</HintPath>
+    <Reference Include="DeveImageOptimizer, Version=1.0.189.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeveImageOptimizer.1.0.189\lib\netstandard2.0\DeveImageOptimizer.dll</HintPath>
     </Reference>
-    <Reference Include="DeveLibVipsNuget, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeveLibVipsNuget.1.0.7\lib\netstandard2.0\DeveLibVipsNuget.dll</HintPath>
+    <Reference Include="DeveLibVipsNuget, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeveLibVipsNuget.1.0.8\lib\netstandard2.0\DeveLibVipsNuget.dll</HintPath>
     </Reference>
     <Reference Include="ExifLibrary, Version=1.1.18.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExifLibNet.1.1.18\lib\netstandard1.3\ExifLibrary.dll</HintPath>
@@ -240,7 +240,7 @@
     <Compile Include="Converters\ObservableCollectionOptimizedFileResultToTotalSizeAfterConverter.cs" />
     <Compile Include="Converters\ObservableCollectionOptimizedFileResultToTotalSizeBeforeConverter.cs" />
     <Compile Include="Converters\OptimizedFileResulToErrorStringConverter.cs" />
-    <Compile Include="Converters\ToColorConverter.cs" />
+    <Compile Include="Converters\OptimizationResultToColorConverter.cs" />
     <Compile Include="Converters\ObservableCollectionOptimizedFileResultToSizeReducedConverter.cs" />
     <Compile Include="Converters\OptimizedFileResultToSizeConverter.cs" />
     <Compile Include="Converters\KbConverter.cs" />

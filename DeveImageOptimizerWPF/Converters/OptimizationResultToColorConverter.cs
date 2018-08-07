@@ -7,22 +7,24 @@ using DeveImageOptimizer.State;
 namespace DeveImageOptimizerWPF.Converters
 {
     [ValueConversion(typeof(bool), typeof(string))]
-    public sealed class ToColorConverter : IValueConverter
+    public sealed class OptimizationResultToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
             {
-                return string.Empty;
-            }
-            var ofr = (bool)value;
-            if (ofr)
-            {
-                return Brushes.LightGreen;
-            }
-            else
-            {
                 return Brushes.Red;
+            }
+            var ofr = (OptimizationResult)value;
+            switch (ofr)
+            {
+                case OptimizationResult.Success:
+                    return Brushes.LightGreen;
+                case OptimizationResult.Skipped:
+                    return Brushes.Yellow;
+                case OptimizationResult.Failed:
+                default:
+                    return Brushes.Red;
             }
         }
 

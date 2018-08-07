@@ -12,7 +12,7 @@
         <l:ObservableCollectionOptimizedFileResultToSizeReducedConverter x:Key="observableCollectionOptimizedFileResultToSizeReducedConverter"/>
         <l:ObservableCollectionOptimizedFileResultToTotalSizeBeforeConverter x:Key="observableCollectionOptimizedFileResultToTotalSizeBeforeConverter"/>
         <l:ObservableCollectionOptimizedFileResultToTotalSizeAfterConverter x:Key="observableCollectionOptimizedFileResultToTotalSizeAfterConverter"/>
-        <l:ToColorConverter x:Key="toColorConverter"/>
+        <l:OptimizationResultToColorConverter x:Key="optimizationResultToColorConverter"/>
         <l:OptimizedFileResulToErrorStringConverter x:Key="optimizedFileResulToErrorStringConverter"/>
     </Window.Resources>
     <Grid>
@@ -56,9 +56,8 @@
                                                 <ColumnDefinition Width="14" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Rectangle Fill="{Binding Successful, Mode=OneWay, Converter={StaticResource toColorConverter}}" />
+                                            <Rectangle Fill="{Binding OptimizationResult, Mode=OneWay, Converter={StaticResource optimizationResultToColorConverter}}" />
                                             <TextBlock Margin="10,0,0,0" Grid.Column="1" Text="{Binding RelativePath}" />
-                                            <!--<ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />-->
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
