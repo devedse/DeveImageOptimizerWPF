@@ -15,6 +15,10 @@ namespace DeveImageOptimizerWPF.State.UserSettings
 
         public bool ForceOptimizeEvenIfAlreadyOptimized { get; set; }
 
+        public bool ExecuteImageOptimizationParallel { get; set; }
+        public int MaxDegreeOfParallelism { get; set; }
+
+
         public UserSettingsData()
         {
             ResetToDefaults();
@@ -25,6 +29,8 @@ namespace DeveImageOptimizerWPF.State.UserSettings
             FileOptimizerPath = @"C:\Program Files\FileOptimizer\FileOptimizer64.exe";
             HideFileOptimizerWindow = true;
             ForceOptimizeEvenIfAlreadyOptimized = false;
+            ExecuteImageOptimizationParallel = true;
+            MaxDegreeOfParallelism = 4;
         }
 
         [XmlIgnore]

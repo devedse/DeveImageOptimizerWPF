@@ -5,6 +5,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using PropertyChanged;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Input;
 
@@ -15,6 +17,8 @@ namespace DeveImageOptimizerWPF.ViewModel
     {
         public UserSettingsData UserSettingsData { get; }
 
+        public IEnumerable<int> MaxParallelismChoices { get; }
+
         public SettingsViewModel()
         {
             UserSettingsData = StaticState.UserSettingsManager.State;
@@ -22,6 +26,8 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             SaveCommand = new RelayCommand(SaveCommandImp, () => true);
             ResetToDefaultsCommand = new RelayCommand(ResetToDefaultsCommandImpl, () => true);
+
+            MaxParallelismChoices = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
         }
 
         public ICommand SaveCommand { get; }

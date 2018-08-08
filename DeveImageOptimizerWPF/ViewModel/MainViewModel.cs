@@ -61,7 +61,15 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, Constants.TempDirectoryName), !state.HideFileOptimizerWindow);
             var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(state.ForceOptimizeEvenIfAlreadyOptimized));
-            await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
+
+            if (!state.ExecuteImageOptimizationParallel)
+            {
+                await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
+            }
+            else
+            {
+                await fileProcessor.ProcessDirectoryParallel(WindowState.ProcessingDirectory, state.MaxDegreeOfParallelism);
+            }
         }
 
         public ICommand BrowseCommand { get; private set; }
