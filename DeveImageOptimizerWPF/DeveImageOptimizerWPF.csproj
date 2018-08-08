@@ -61,8 +61,8 @@
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="DeveImageOptimizer, Version=1.0.196.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeveImageOptimizer.1.0.196\lib\netstandard2.0\DeveImageOptimizer.dll</HintPath>
+    <Reference Include="DeveImageOptimizer, Version=1.0.198.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeveImageOptimizer.1.0.198\lib\netstandard2.0\DeveImageOptimizer.dll</HintPath>
     </Reference>
     <Reference Include="DeveLibVipsNuget, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DeveLibVipsNuget.1.0.8\lib\netstandard2.0\DeveLibVipsNuget.dll</HintPath>
@@ -92,7 +92,7 @@
       <HintPath>..\packages\SixLabors.Core.1.0.0-ci0007\lib\netstandard1.1\SixLabors.Core.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.ImageSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.ImageSharp.1.0.0-dev001749\lib\netstandard2.0\SixLabors.ImageSharp.dll</HintPath>
+      <HintPath>..\packages\SixLabors.ImageSharp.1.0.0-dev001761\lib\netstandard2.0\SixLabors.ImageSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
