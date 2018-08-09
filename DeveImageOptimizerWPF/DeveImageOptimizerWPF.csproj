@@ -89,7 +89,7 @@
       <HintPath>..\packages\PropertyChanged.Fody.2.5.9\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.Core, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.Core.1.0.0-ci0007\lib\netstandard1.1\SixLabors.Core.dll</HintPath>
+      <HintPath>..\packages\SixLabors.Core.1.0.0-dev000066\lib\netstandard1.1\SixLabors.Core.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.ImageSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SixLabors.ImageSharp.1.0.0-dev001761\lib\netstandard2.0\SixLabors.ImageSharp.dll</HintPath>
