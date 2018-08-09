@@ -24,7 +24,8 @@ Write-Host $ilrepackexe;
 
 $arguments = @();
 
-$arguments += "/log"
+$arguments += "/lib:""C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7""";
+$arguments += "/log";
 $arguments += "/out:""$($outputexe)""";
 $arguments += """$($deveimageoptimizerexe)""";
 
