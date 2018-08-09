@@ -18,6 +18,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         public UserSettingsData UserSettingsData { get; }
 
         public IEnumerable<int> MaxParallelismChoices { get; }
+        public IEnumerable<int> AvailableLogLevels { get; }
 
         public SettingsViewModel()
         {
@@ -28,6 +29,7 @@ namespace DeveImageOptimizerWPF.ViewModel
             ResetToDefaultsCommand = new RelayCommand(ResetToDefaultsCommandImpl, () => true);
 
             MaxParallelismChoices = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+            AvailableLogLevels = new List<int>() { 0, 1, 2, 3, 4 };
         }
 
         public ICommand SaveCommand { get; }
