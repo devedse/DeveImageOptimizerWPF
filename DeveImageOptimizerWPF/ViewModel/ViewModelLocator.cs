@@ -45,21 +45,9 @@ namespace DeveImageOptimizerWPF.ViewModel
             SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
-        public SettingsViewModel Settings
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<SettingsViewModel>();
-            }
-        }
+        public SettingsViewModel Settings => ServiceLocator.Current.GetInstance<SettingsViewModel>();
 
         public static void Cleanup()
         {
