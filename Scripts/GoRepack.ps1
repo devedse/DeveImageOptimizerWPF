@@ -16,7 +16,7 @@ $outputexe = Join-Path $outputfolder $fileNameOfPrimaryExe
 
 If(!(test-path $outputfolder))
 {
-      New-Item -ItemType Directory -Force -Path $outputfolder
+	New-Item -ItemType Directory -Force -Path $outputfolder
 }
 
 Write-Host $directorypath;
