@@ -18,7 +18,7 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 
         public FilesProcessingState()
         {
-            _logPath = Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, "log.txt");
+            _logPath = Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, "Log.txt");
         }
 
         public void AddProcessedFile(OptimizedFileResult optimizedFileResult)
