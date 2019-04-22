@@ -13,7 +13,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
 
         public bool HideFileOptimizerWindow { get; set; }
 
-        public bool ForceOptimizeEvenIfAlreadyOptimized { get; set; }
+        public RemembererSettings RemembererSettings { get; set; }
 
         public bool SaveFailedFiles { get; set; }
 
@@ -31,7 +31,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
         {
             FileOptimizerPath = @"C:\Program Files\FileOptimizer\FileOptimizer64.exe";
             HideFileOptimizerWindow = true;
-            ForceOptimizeEvenIfAlreadyOptimized = false;
+            RemembererSettings = RemembererSettings.StorePerFileAndDirectory;
             SaveFailedFiles = false;
             ExecuteImageOptimizationParallel = true;
             MaxDegreeOfParallelism = 4;

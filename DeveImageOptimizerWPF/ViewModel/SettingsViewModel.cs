@@ -5,10 +5,12 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using PropertyChanged;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Input;
+using System.Linq;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
@@ -20,6 +22,8 @@ namespace DeveImageOptimizerWPF.ViewModel
         public IEnumerable<int> MaxParallelismChoices { get; }
         public IEnumerable<int> AvailableLogLevels { get; }
 
+        public IEnumerable<RemembererSettings> AvailableStorageModes { get; }
+
         public SettingsViewModel()
         {
             UserSettingsData = StaticState.UserSettingsManager.State;
@@ -30,6 +34,8 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             MaxParallelismChoices = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
             AvailableLogLevels = new List<int>() { 0, 1, 2, 3, 4 };
+
+            AvailableStorageModes = Enum.GetValues(typeof(RemembererSettings)).Cast<RemembererSettings>().ToList();
         }
 
         public ICommand SaveCommand { get; }

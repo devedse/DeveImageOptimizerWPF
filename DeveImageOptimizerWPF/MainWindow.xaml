@@ -121,7 +121,24 @@
                                 <Button Grid.Column="1" Content="Browse" Command="{Binding BrowseCommand}"></Button>
                             </Grid>
                             <CheckBox Content="Hide FileOptimizer Window" IsChecked="{Binding UserSettingsData.HideFileOptimizerWindow, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
-                            <CheckBox Content="Force optimize even if image is already optimized" IsChecked="{Binding UserSettingsData.ForceOptimizeEvenIfAlreadyOptimized, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0">File saving mode:</Label>
+                                
+                                
+                                <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableStorageModes}" SelectedItem="{Binding UserSettingsData.RemembererSettings}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding}"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
                             <CheckBox Content="Save failed files as {FILENAME}__FAILED" IsChecked="{Binding UserSettingsData.SaveFailedFiles, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
                             <CheckBox Content="Use parallel image optimization" IsChecked="{Binding UserSettingsData.ExecuteImageOptimizationParallel, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
                             <Grid HorizontalAlignment="Stretch">

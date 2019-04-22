@@ -2,9 +2,11 @@ using DeveImageOptimizer;
 using DeveImageOptimizer.FileProcessing;
 using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
+using DeveImageOptimizer.State.StoringProcessedDirectories;
 using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.MainWindowState;
+using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Ookii.Dialogs.Wpf;
@@ -61,7 +63,14 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             var tempDir = Path.Combine(FolderHelperMethods.EntryAssemblyDirectory.Value, ConstantsAndConfig.TempDirectoryName);
             var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, tempDir, !state.HideFileOptimizerWindow, state.LogLevel, state.SaveFailedFiles);
-            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, new FileProcessedStateRememberer(state.ForceOptimizeEvenIfAlreadyOptimized));
+
+            var fileOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerDirectory;
+            var dirOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerFile;
+
+            var fileRememberer = new FileProcessedStateRememberer(fileOptimize);
+            var dirRememberer = new DirProcessedStateRememberer(dirOptimize);
+
+            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, fileRememberer, dirRememberer);
 
             if (!state.ExecuteImageOptimizationParallel)
             {
