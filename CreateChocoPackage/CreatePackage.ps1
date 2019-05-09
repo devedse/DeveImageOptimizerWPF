@@ -32,5 +32,6 @@ Write-Host "Setting checksum $checksum in $chocoinstallpsfiletemplatepath by usi
 
 $reChecksum.Replace([string]::Join("`n", (Get-Content -Path $chocoinstallpsfiletemplatepath)), "$checksum", 1) | Set-Content -Path $chocoinstallpsfilepath -Encoding UTF8
 
-Set-Location -Path $directorypath
+Push-Location -Path $directorypath
 choco pack
+Pop-Location
