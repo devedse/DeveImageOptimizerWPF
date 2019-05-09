@@ -6,6 +6,7 @@ configuration: Release
 before_build:
   - ps: .\Scripts\set-version.ps1
   - cmd: nuget restore
+  - choco install checksum
 
 build:
   verbosity: minimal
