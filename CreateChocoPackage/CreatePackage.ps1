@@ -10,7 +10,7 @@ $toolsDir = Join-Path $directorypath "tools"
 $destinationFileName = [System.IO.Path]::GetFileName($fullPathFileToPackage)
 $destinationFilePath = Join-Path $toolsDir $destinationFileName
 $chocoinstallpsfilepath = Join-path $toolsDir "chocolateyinstall.ps1"
-$chocoinstallpsfiletemplatepath = Join-path $toolsDir "chocolateyinstall_template.ps1"
+$chocoinstallpsfiletemplatepath = Join-path $directorypath "chocolateyinstall_template.ps1"
 
 Copy-Item $fullPathFileToPackage $destinationFilePath
 
