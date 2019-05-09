@@ -9,7 +9,8 @@ $toolsDir = Join-Path $directorypath "tools"
 
 $destinationFileName = [System.IO.Path]::GetFileName($fullPathFileToPackage)
 $destinationFilePath = Join-Path $toolsDir $destinationFileName
-$chocoinstallpath = Join-path $toolsDir "chocolateyinstall.ps1"
+$chocoinstallpsfilepath = Join-path $toolsDir "chocolateyinstall.ps1"
+$chocoinstallpsfiletemplatepath = Join-path $toolsDir "chocolateyinstall_template.ps1"
 
 Copy-Item $fullPathFileToPackage $destinationFilePath
 
@@ -27,9 +28,9 @@ Write-Host "Setting version $ReleaseVersionNumberFull in $nuspecFile by using Re
  
 $re.Replace([string]::Join("`n", (Get-Content -Path $nuspecFile)), "$ReleaseVersionNumberFull", 1) | Set-Content -Path $nuspecFile -Encoding UTF8
 
-Write-Host "Setting checksum $checksum in $chocoinstallpath by using Regex: $reChecksum"
+Write-Host "Setting checksum $checksum in $chocoinstallpsfiletemplatepath by using Regex: $reChecksum"
 
-$reChecksum.Replace([string]::Join("`n", (Get-Content -Path $chocoinstallpath)), "$checksum", 1) | Set-Content -Path $chocoinstallpath -Encoding UTF8
+$reChecksum.Replace([string]::Join("`n", (Get-Content -Path $chocoinstallpsfiletemplatepath)), "$checksum", 1) | Set-Content -Path $chocoinstallpsfilepath -Encoding UTF8
 
 Set-Location -Path $directorypath
 choco pack
