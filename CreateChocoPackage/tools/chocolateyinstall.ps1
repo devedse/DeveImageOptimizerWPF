@@ -18,8 +18,6 @@ $fileLocation = Join-Path $toolsDir 'DeveImageOptimizerWPF.exe'
 $url        = '' # download url, HTTPS preferred
 $url64      = '' # 64bit URL here (HTTPS preferred) or remove - if installer contains both (very rare), use $url
 
-$checksum = checksum -t sha256 -f $fileLocation
-
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
   unzipLocation = $toolsDir
@@ -34,9 +32,9 @@ $packageArgs = @{
   # To determine checksums, you can get that from the original site if provided. 
   # You can also use checksum.exe (choco install checksum) and use it 
   # e.g. checksum -t sha256 -f path\to\file
-  checksum      = $checksum
+  checksum      = "{checksumtoreplace}"
   checksumType  = 'sha256' #default is md5, can also be sha1, sha256 or sha512
-  checksum64    = $checksum
+  checksum64    = "{checksumtoreplace}"
   checksumType64= 'sha256' #default is checksumType
 
   # MSI
