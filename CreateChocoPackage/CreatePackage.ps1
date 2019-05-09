@@ -18,8 +18,7 @@ $nuspecFile = (Get-ChildItem "$($directorypath)\*" -include *.nuspec).FullName
 
 $re = [regex]"(?<=<version>).*(?=<\/version>)"
 
-Write-Host "Regex1: $re"
-Write-Host "Setting version $ReleaseVersionNumberFull in $nuspecFile"
+Write-Host "Setting version $ReleaseVersionNumberFull in $nuspecFile by using Regex: $re"
  
 $re.Replace([string]::Join("`n", (Get-Content -Path $nuspecFile)), "$ReleaseVersionNumberFull", 1) | Set-Content -Path $nuspecFile -Encoding UTF8
 

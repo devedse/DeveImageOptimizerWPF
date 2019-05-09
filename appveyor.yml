@@ -13,10 +13,13 @@ build:
 
 after_build:
   - ps: .\Scripts\GoRepack.ps1
+  - ps: .\CreateChocoPackage\CreatePackage.ps1
 
 artifacts:
   - path: Scripts\Output\*.exe
     name: droppackage
+  - path: CreateChocoPackage\*.nupkg
+    name: chocopackage
 
 deploy:
   - provider: GitHub
