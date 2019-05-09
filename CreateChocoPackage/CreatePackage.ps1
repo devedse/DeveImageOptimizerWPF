@@ -2,8 +2,7 @@ $fileToPackage = "Scripts\Output\DeveImageOptimizerWPF.exe"
 
 $invocation = (Get-Variable MyInvocation).Value
 $directorypath = Split-Path $invocation.MyCommand.Path
-$CreateChocoDir = Split-Path -Path $directorypath -Parent
-$SolutionRoot = Split-Path -Path $CreateChocoDir -Parent
+$SolutionRoot = Split-Path -Path $directorypath -Parent
 
 $fullPathFileToPackage = Join-Path $SolutionRoot $fileToPackage -Resolve
 $destinationFileName = [System.IO.Path]::GetFileName($fullPathFileToPackage)
