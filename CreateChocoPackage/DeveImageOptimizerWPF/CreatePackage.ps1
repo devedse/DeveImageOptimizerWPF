@@ -23,3 +23,6 @@ Write-Host "Regex1: $re"
 Write-Host "Setting version $ReleaseVersionNumberFull in $nuspecFile"
  
 $re.Replace([string]::Join("`n", (Get-Content -Path $nuspecFile)), "$ReleaseVersionNumberFull", 1) | Set-Content -Path $nuspecFile -Encoding UTF8
+
+Set-Location -Path $directorypath
+choco pack
