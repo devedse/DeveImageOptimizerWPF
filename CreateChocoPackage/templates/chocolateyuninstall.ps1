@@ -81,4 +81,3 @@ if ($key.Count -eq 1) {
 #Uninstall-ChocolateyEnvironmentVariable # 0.9.10+ - https://chocolatey.org/docs/helpers-uninstall-chocolatey-environment-variable 
 #Uninstall-BinFile # Only needed if you used Install-BinFile - see https://chocolatey.org/docs/helpers-uninstall-bin-file
 ## Remove any shortcuts you added in the install script.
-
