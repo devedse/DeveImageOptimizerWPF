@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop"
+
 $fileToPackage = "Scripts\Output\DeveImageOptimizerWPF.exe"
 
 Function Remove-Comments($Path)
