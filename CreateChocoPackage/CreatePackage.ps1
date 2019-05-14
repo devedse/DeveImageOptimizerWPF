@@ -84,7 +84,9 @@ $toolsDir = Join-Path $directorypath "tools"
 $templateDir = Join-Path $directorypath "templates"
 
 $destinationFileName = [System.IO.Path]::GetFileName($fullPathFileToPackage)
+$destinationFileNameNoExtension = [System.IO.Path]::GetFileNameWithoutExtension($fullPathFileToPackage)
 $destinationFilePath = Join-Path $toolsDir $destinationFileName
+$destinationFilePath7z = Join-path $toolsDir "$($destinationFileNameNoExtension).7z"
 $chocoinstallpsfilepath = Join-path $toolsDir "chocolateyinstall.ps1"
 $chocouninstallpsfilepath = Join-path $toolsDir "chocolateyuninstall.ps1"
 $chocobeforemodifypsfilepath = Join-path $toolsDir "chocolateybeforemodify.ps1"
@@ -92,7 +94,17 @@ $chocoinstallpsfiletemplatepath = Join-path $templateDir "chocolateyinstall.ps1"
 $chocouninstallpsfiletemplatepath = Join-path $templateDir "chocolateyuninstall.ps1"
 $chocobeforemodifypsfiletemplatepath = Join-path $templateDir "chocolateybeforemodify.ps1"
 
-Copy-Item $fullPathFileToPackage $destinationFilePath
+if (Test-Path $destinationFilePath) 
+{
+    Remove-Item $destinationFilePath
+}
+if (Test-Path $destinationFilePath7z) 
+{
+    Remove-Item $destinationFilePath7z
+}
+
+7z a -t7z -m0=LZMA2 -mmt=on -mx9 -md=1536m -mfb=273 -ms=on -mqs=on -sccUTF-8 "$destinationFilePath7z" "$fullPathFileToPackage"
+#Copy-Item $fullPathFileToPackage $destinationFilePath
 
 Write-Host "Copying templates..."
 
@@ -106,8 +118,9 @@ Remove-Comments($chocouninstallpsfilepath)
 Remove-Comments($chocobeforemodifypsfilepath)
 
 
-$ReleaseVersionNumberFull = (Get-Item $destinationFilePath).VersionInfo.FileVersion
-$checksum = checksum -t sha256 -f $destinationFilePath
+$ReleaseVersionNumberFull = (Get-Item $fullPathFileToPackage).VersionInfo.FileVersion
+#$checksum = checksum -t sha256 -f $fullPathFileToPackage
+$checksum = checksum -t sha256 -f $destinationFilePath7z
 
 $nuspecFile = (Get-ChildItem "$($directorypath)\*" -include *.nuspec).FullName
 
