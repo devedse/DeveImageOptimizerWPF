@@ -4,7 +4,6 @@ $fileToPackage = "Scripts\Output\DeveImageOptimizerWPF.exe"
 
 Function Remove-Comments($Path)
 {
-
     Get-ChildItem $Path -ErrorAction Stop | Out-Null
     $ScriptBlockString = [IO.File]::ReadAllText((Resolve-Path $Path))
     $ScriptBlock = [ScriptBlock]::Create($ScriptBlockString)

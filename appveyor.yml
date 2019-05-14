@@ -10,8 +10,8 @@ environment:
 before_build:
   - ps: .\Scripts\set-version.ps1
   - cmd: nuget restore
-  - choco install checksum
-  - choco install 7z
+  - choco install checksum -y
+  - choco install 7z -y
 
 build:
   verbosity: minimal
