@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>deveimageoptimizerwpf</id>
+    <version>1.0.101.0</version>
+    <title>DeveImageOptimizerWPF (Install)</title>
+    <authors>Devedse</authors>
+    <projectUrl>https://github.com/devedse/DeveImageOptimizerWPF</projectUrl>
+    <iconUrl>https://github.com/devedse/DeveImageOptimizerWPF/blob/master/LICENSE/Icon.png</iconUrl>
+    <licenseUrl>https://github.com/devedse/DeveImageOptimizerWPF/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <tags>deveimageoptimizerwpf image optimizer compression fileoptimizerfull fileoptimizer file</tags>
+    <summary>Uses FileOptimizerFull to compress/otpimize Images</summary>
+    <description>This is a tool written around FileOptimizerFull. It optimizes images in parallel and then verifies if the source exactly matches the output.</description>
+    <releaseNotes>https://ci.appveyor.com/project/devedse/deveimageoptimizerwpf/history</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

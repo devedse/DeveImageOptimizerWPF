@@ -3,19 +3,29 @@ os: Visual Studio 2019 Preview
 skip_tags: true
 configuration: Release
 
+environment:
+  CHOCOLATEYKEY:
+    secure: FN8rbgEXxUUmIbLsYpsvaAMmTidJQEyNJMhgU+ggl4H/n2luoWRO+eitNbi6FYPI
+
 before_build:
   - ps: .\Scripts\set-version.ps1
   - cmd: nuget restore
+  - choco install checksum
+  - choco install 7zip
 
 build:
   verbosity: minimal
 
 after_build:
   - ps: .\Scripts\GoRepack.ps1
+  - ps: .\CreateChocoPackage\CreatePackage.ps1
+  - ps: .\CreateChocoPackage\PushPackage.ps1
 
 artifacts:
   - path: Scripts\Output\*.exe
     name: droppackage
+  - path: CreateChocoPackage\*.nupkg
+    name: chocopackage
 
 deploy:
   - provider: GitHub

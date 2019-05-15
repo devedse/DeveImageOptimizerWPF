@@ -1,0 +1,6 @@
+﻿VERIFICATION
+Verification is intended to assist the Chocolatey moderators and community
+in verifying that this package's contents are trustworthy.
+ 
+I am the software vendor, this package is automatically created by an AppVeyor build. Checksum is also automatically added:
+https://github.com/devedse/DeveImageOptimizerWPF
