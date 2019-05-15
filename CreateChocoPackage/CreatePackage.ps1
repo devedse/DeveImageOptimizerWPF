@@ -55,6 +55,7 @@ Remove-Comments($chocoinstallpsfilepath)
 
 
 $ReleaseVersionNumberFull = (Get-Item $fullPathFileToPackage).VersionInfo.FileVersion
+$ReleaseVersionNumberShort = $ReleaseVersionNumberFull.Substring(0, $ReleaseVersionNumberFull.LastIndexOf('.'))
 $checksum = checksum -t sha256 -f $fullPathFileToPackage
 #$checksum = checksum -t sha256 -f $destinationFilePath7z
 
@@ -64,9 +65,9 @@ $nuspecFile = (Get-ChildItem "$($directorypath)\*" -include *.nuspec).FullName
 $re = [regex]"(?<=<version>).*(?=<\/version>)"
 $reChecksum = [regex]"{checksumtoreplace}"
 
-Write-Host "Setting version $ReleaseVersionNumberFull in $nuspecFile by using Regex: $re"
+Write-Host "Setting version $ReleaseVersionNumberShort in $nuspecFile by using Regex: $re"
  
-$re.Replace([string]::Join("`n", (Get-Content -Path $nuspecFile)), "$ReleaseVersionNumberFull", 1) | Set-Content -Path $nuspecFile -Encoding UTF8
+$re.Replace([string]::Join("`n", (Get-Content -Path $nuspecFile)), "$ReleaseVersionNumberShort", 1) | Set-Content -Path $nuspecFile -Encoding UTF8
 
 Write-Host "Setting checksum $checksum in $verificationfilepath by using Regex: $reChecksum"
 
