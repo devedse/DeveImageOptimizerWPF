@@ -2,3 +2,4 @@
 tools/*.exe
 tools/*.ps1
 tools/*.7z
+tools/VERIFICATION.txt

@@ -6,13 +6,13 @@
     <title>DeveImageOptimizerWPF (Install)</title>
     <authors>Devedse</authors>
     <projectUrl>https://github.com/devedse/DeveImageOptimizerWPF</projectUrl>
-    <iconUrl>https://github.com/devedse/DeveImageOptimizerWPF/blob/master/LICENSE/Icon.png</iconUrl>
+    <iconUrl>https://rawcdn.githack.com/devedse/DeveImageOptimizerWPF/41e170e1313466cc768e6fe09428b186dd829a6d/Icon.png</iconUrl>
     <licenseUrl>https://github.com/devedse/DeveImageOptimizerWPF/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <tags>deveimageoptimizerwpf image optimizer compression fileoptimizerfull fileoptimizer file</tags>
     <summary>Uses FileOptimizerFull to compress/otpimize Images</summary>
     <description>This is a tool written around FileOptimizerFull. It optimizes images in parallel and then verifies if the source exactly matches the output.</description>
-    <releaseNotes>https://ci.appveyor.com/project/devedse/deveimageoptimizerwpf/history</releaseNotes>
+    <releaseNotes>https://github.com/devedse/DeveImageOptimizerWPF/releases</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />

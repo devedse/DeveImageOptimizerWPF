@@ -1,0 +1,11 @@
+﻿VERIFICATION
+Verification is intended to assist the Chocolatey moderators and community
+in verifying that this package's contents are trustworthy.
+ 
+I am the software vendor, this package is automatically created by an AppVeyor build.
+https://github.com/devedse/DeveImageOptimizerWPF
+
+The Checksum of this tool is:
+{checksumtoreplace}
+This checksum can be verified by using the checksum tool (choco install checksum):
+checksum -t sha256 -f DeveImageOptimizerWPF.exe

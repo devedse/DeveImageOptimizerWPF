@@ -89,9 +89,12 @@ $destinationFilePath7z = Join-path $toolsDir "$($destinationFileNameNoExtension)
 $chocoinstallpsfilepath = Join-path $toolsDir "chocolateyinstall.ps1"
 $chocouninstallpsfilepath = Join-path $toolsDir "chocolateyuninstall.ps1"
 $chocobeforemodifypsfilepath = Join-path $toolsDir "chocolateybeforemodify.ps1"
+$verificationfilepath = Join-Path $toolsDir "VERIFICATION.txt"
+
 $chocoinstallpsfiletemplatepath = Join-path $templateDir "chocolateyinstall.ps1"
 $chocouninstallpsfiletemplatepath = Join-path $templateDir "chocolateyuninstall.ps1"
 $chocobeforemodifypsfiletemplatepath = Join-path $templateDir "chocolateybeforemodify.ps1"
+$verificationfiletemplatepath = Join-Path $templateDir "VERIFICATION.txt"
 
 if (Test-Path $destinationFilePath) 
 {
@@ -108,18 +111,19 @@ if (Test-Path $destinationFilePath7z)
 Write-Host "Copying templates..."
 
 Copy-Item $chocoinstallpsfiletemplatepath $chocoinstallpsfilepath
-Copy-Item $chocouninstallpsfiletemplatepath $chocouninstallpsfilepath
-Copy-Item $chocobeforemodifypsfiletemplatepath $chocobeforemodifypsfilepath
+#Copy-Item $chocouninstallpsfiletemplatepath $chocouninstallpsfilepath
+#Copy-Item $chocobeforemodifypsfiletemplatepath $chocobeforemodifypsfilepath
+Copy-Item $verificationfiletemplatepath $verificationfilepath
 
 Write-Host "Removing comments..."
 Remove-Comments($chocoinstallpsfilepath)
-Remove-Comments($chocouninstallpsfilepath)
-Remove-Comments($chocobeforemodifypsfilepath)
+#Remove-Comments($chocouninstallpsfilepath)
+#Remove-Comments($chocobeforemodifypsfilepath)
 
 
 $ReleaseVersionNumberFull = (Get-Item $fullPathFileToPackage).VersionInfo.FileVersion
-#$checksum = checksum -t sha256 -f $fullPathFileToPackage
-$checksum = checksum -t sha256 -f $destinationFilePath7z
+$checksum = checksum -t sha256 -f $fullPathFileToPackage
+#$checksum = checksum -t sha256 -f $destinationFilePath7z
 
 $nuspecFile = (Get-ChildItem "$($directorypath)\*" -include *.nuspec).FullName
 
@@ -131,9 +135,9 @@ Write-Host "Setting version $ReleaseVersionNumberFull in $nuspecFile by using Re
  
 $re.Replace([string]::Join("`n", (Get-Content -Path $nuspecFile)), "$ReleaseVersionNumberFull", 1) | Set-Content -Path $nuspecFile -Encoding UTF8
 
-Write-Host "Setting checksum $checksum in $chocoinstallpsfilepath by using Regex: $reChecksum"
+Write-Host "Setting checksum $checksum in $verificationfilepath by using Regex: $reChecksum"
 
-$reChecksum.Replace([string]::Join("`n", (Get-Content -Path $chocoinstallpsfilepath)), "$checksum", 1) | Set-Content -Path $chocoinstallpsfilepath -Encoding UTF8
+$reChecksum.Replace([string]::Join("`n", (Get-Content -Path $verificationfilepath)), "$checksum", 1) | Set-Content -Path $verificationfilepath -Encoding UTF8
 
 Push-Location -Path $directorypath
 choco pack
