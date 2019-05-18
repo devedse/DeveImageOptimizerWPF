@@ -61,7 +61,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         {
             var state = StaticState.UserSettingsManager.State;
 
-            var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, default, default, !state.HideFileOptimizerWindow, state.LogLevel, state.SaveFailedFiles);
+            var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, null, null, !state.HideFileOptimizerWindow, state.LogLevel, state.SaveFailedFiles);
 
             var fileOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerDirectory;
             var dirOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerFile;
