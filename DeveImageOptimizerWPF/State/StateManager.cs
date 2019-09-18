@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
 
 namespace DeveImageOptimizerWPF.State
@@ -25,7 +24,7 @@ namespace DeveImageOptimizerWPF.State
             SaveToFile(stateFileName);
         }
 
-        private T LoadFromFile(String filename)
+        private T LoadFromFile(string filename)
         {
             if (File.Exists(filename))
             {
@@ -50,7 +49,7 @@ namespace DeveImageOptimizerWPF.State
             return new T();
         }
 
-        private void SaveToFile(String filename)
+        private void SaveToFile(string filename)
         {
             var curState = State;
             lock (_lockject)
