@@ -6,11 +6,10 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using PropertyChanged;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Input;
 using System.Linq;
+using System.Windows.Input;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
