@@ -7,17 +7,14 @@ namespace DeveImageOptimizerWPF.State
     {
         private readonly string stateFileName;
         private T _currentUserSettings;
-        private object _lockject = new object();
+        private readonly object _lockject = new object();
 
         public StateManager(string stateFileName)
         {
             this.stateFileName = stateFileName;
         }
 
-        public T State
-        {
-            get { return _currentUserSettings ?? (_currentUserSettings = LoadFromFile(stateFileName)); }
-        }
+        public T State => _currentUserSettings ?? (_currentUserSettings = LoadFromFile(stateFileName));
 
         public void Save()
         {

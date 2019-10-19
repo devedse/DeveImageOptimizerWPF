@@ -1,6 +1,4 @@
-using DeveImageOptimizer;
 using DeveImageOptimizer.FileProcessing;
-using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
 using DeveImageOptimizer.State.StoringProcessedDirectories;
 using DeveImageOptimizerWPF.Helpers;
@@ -10,7 +8,6 @@ using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Ookii.Dialogs.Wpf;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;

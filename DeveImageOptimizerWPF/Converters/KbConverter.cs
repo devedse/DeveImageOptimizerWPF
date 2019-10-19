@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DeveImageOptimizer.Helpers;
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using DeveImageOptimizer.Helpers;
 
 namespace DeveImageOptimizerWPF.Converters
 {

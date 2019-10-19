@@ -1,10 +1,10 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Data;
-using DeveImageOptimizer.Helpers;
+﻿using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
-using System.Linq;
+using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.Converters
 {

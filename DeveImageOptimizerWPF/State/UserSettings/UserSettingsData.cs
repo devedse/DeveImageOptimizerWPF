@@ -1,6 +1,5 @@
 ﻿using PropertyChanged;
 using System;
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace DeveImageOptimizerWPF.State.UserSettings
@@ -9,7 +8,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
     [AddINotifyPropertyChangedInterface]
     public class UserSettingsData : IChangable
     {
-        public String FileOptimizerPath { get; set; }
+        public string FileOptimizerPath { get; set; }
 
         public bool HideFileOptimizerWindow { get; set; }
 
