@@ -13,7 +13,7 @@ before_build:
   - choco install checksum
   - choco install 7zip
 
-build:
+build_script:
   - cmd: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
   #- cmd: dotnet publish -r win-x64 -c Release --self-contained=false /p:PublishSingleFile=true /p:PublishTrimmed=true
 
