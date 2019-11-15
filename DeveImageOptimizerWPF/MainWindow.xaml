@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:DeveImageOptimizerWPF.Converters"
+        xmlns:local="clr-namespace:DeveImageOptimizerWPF"
         mc:Ignorable="d"
         Title="DeveImageOptimizer" Height="450" Width="600">
     <Window.Resources>
@@ -127,8 +128,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0">File saving mode:</Label>
-                                
-                                
+
+
                                 <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableStorageModes}" SelectedItem="{Binding UserSettingsData.RemembererSettings}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>

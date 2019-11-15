@@ -45,7 +45,6 @@ namespace DeveImageOptimizerWPF.ViewModel
 
         private void FilesProcessingState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            //StaticState.FilesProcessingStateManager.Save();
         }
 
         private void ProcessingStateData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
