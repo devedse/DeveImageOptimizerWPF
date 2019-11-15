@@ -7,7 +7,7 @@ using DeveImageOptimizerWPF.State.MainWindowState;
 using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-//using Ookii.Dialogs.Wpf;
+using Ookii.Dialogs.Wpf;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -80,18 +80,18 @@ namespace DeveImageOptimizerWPF.ViewModel
         public ICommand BrowseCommand { get; private set; }
         private void BrowseCommandImp()
         {
-            //var folderDialog = new VistaFolderBrowserDialog();
+            var folderDialog = new VistaFolderBrowserDialog();
 
-            //string startDir = InitialDirFinder.FindStartingDirectoryBasedOnInput(WindowState.ProcessingDirectory);
-            //if (Directory.Exists(startDir))
-            //{
-            //    folderDialog.SelectedPath = startDir;
-            //}
+            string startDir = InitialDirFinder.FindStartingDirectoryBasedOnInput(WindowState.ProcessingDirectory);
+            if (Directory.Exists(startDir))
+            {
+                folderDialog.SelectedPath = startDir;
+            }
 
-            //if (folderDialog.ShowDialog() == true)
-            //{
-            //    WindowState.ProcessingDirectory = folderDialog.SelectedPath;
-            //}
+            if (folderDialog.ShowDialog() == true)
+            {
+                WindowState.ProcessingDirectory = folderDialog.SelectedPath;
+            }
         }
     }
 }
