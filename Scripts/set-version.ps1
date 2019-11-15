@@ -1,22 +1,23 @@
 $ReleaseVersionNumber = $env:APPVEYOR_BUILD_VERSION
-$PreReleaseName = '.0'
+$PreReleaseName = ''
+
+If($env:APPVEYOR_PULL_REQUEST_NUMBER -ne $null) {
+  $PreReleaseName = '-PR-' + $env:APPVEYOR_PULL_REQUEST_NUMBER
+} ElseIf($env:APPVEYOR_REPO_BRANCH -ne 'master' -and -not $env:APPVEYOR_REPO_BRANCH.StartsWith('release')) {
+  $PreReleaseName = '-' + $env:APPVEYOR_REPO_BRANCH
+} Else {
+  $PreReleaseName = '' # This was previously: '-CI'
+}
+
+$totalVersion = "$ReleaseVersionNumber$PreReleaseName"
 
 $PSScriptFilePath = (Get-Item $MyInvocation.MyCommand.Path).FullName
 $ScriptDir = Split-Path -Path $PSScriptFilePath -Parent
 $SolutionRoot = Split-Path -Path $ScriptDir -Parent
 
-$assemblyInfoPath = Join-Path $SolutionRoot 'DeveImageOptimizerWPF\Properties\AssemblyInfo.cs' -Resolve
-$re1 = [regex]"(?<=\[assembly: AssemblyVersion\(`")1.0.0.0(?=`")"
-$re2 = [regex]"(?<=\[assembly: AssemblyFileVersion\(`")1.0.0.0(?=`")"
-#$re = [regex]"(?<=<Version>).*(?=<\/Version>)"
+$csprojPath = Join-Path -Path $SolutionRoot -ChildPath "DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj"
+$re = [regex]"(?<=<Version>).*(?=<\/Version>)"
 
-Write-Host "AssemblyInfo Path: $assemblyInfoPath"
-Write-Host "Writing version: $ReleaseVersionNumber$PreReleaseName"
-#Write-Host "Regex 1: $re1"
-#Write-Host "Regex 2: $re2"
-Write-Host "Regex1: $re1"
-Write-Host "Regex2: $re2"
+Write-Host "Applying version $totalVersion to $csprojPath using regex $re"
  
-#$re.Replace([string]::Join("`n", (Get-Content -Path $ProjectJsonPath)), "$ReleaseVersionNumber$PreReleaseName", 1) | Set-Content -Path $ProjectJsonPath -Encoding UTF8
-$re1.Replace([string]::Join("`n", (Get-Content -Path $assemblyInfoPath)), "$ReleaseVersionNumber$PreReleaseName", 1) | Set-Content -Path $assemblyInfoPath -Encoding UTF8
-$re2.Replace([string]::Join("`n", (Get-Content -Path $assemblyInfoPath)), "$ReleaseVersionNumber$PreReleaseName", 1) | Set-Content -Path $assemblyInfoPath -Encoding UTF8
+$re.Replace([string]::Join("`n", (Get-Content -Path $csprojPath)), "$totalVersion", 1) | Set-Content -Path $csprojPath -Encoding UTF8
