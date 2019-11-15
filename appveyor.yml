@@ -14,15 +14,16 @@ before_build:
   - choco install 7zip
 
 build:
-  verbosity: minimal
+  - cmd: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
+  #- cmd: dotnet publish -r win-x64 -c Release --self-contained=false /p:PublishSingleFile=true /p:PublishTrimmed=true
 
 after_build:
-  - ps: .\Scripts\GoRepack.ps1
+  #- ps: .\Scripts\GoRepack.ps1
   - ps: .\CreateChocoPackage\CreatePackage.ps1
   - ps: .\CreateChocoPackage\PushPackage.ps1
 
 artifacts:
-  - path: Scripts\Output\*.exe
+  - path: DeveImageOptimizerWPF\bin\Release\netcoreapp3.0\win-x64\publish\*.exe
     name: droppackage
   - path: CreateChocoPackage\*.nupkg
     name: chocopackage
