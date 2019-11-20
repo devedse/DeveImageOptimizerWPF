@@ -18,6 +18,8 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private object logfilelockject = new object();
+
         public FilesProcessingState()
         {
             _logPath = Path.Combine(FolderHelperMethods.ConfigFolder, "Log.txt");
@@ -42,7 +44,10 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             }
             else
             {
-                File.AppendAllText(_logPath, $"{optimizedFileResult.OptimizationResult}|{optimizedFileResult.Path}{Environment.NewLine}");
+                lock (logfilelockject)
+                {
+                    File.AppendAllText(_logPath, $"{optimizedFileResult.OptimizationResult}|{optimizedFileResult.Path}{Environment.NewLine}");
+                }
 
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
