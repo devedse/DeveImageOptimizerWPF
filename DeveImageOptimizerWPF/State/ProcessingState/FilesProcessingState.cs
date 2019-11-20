@@ -1,9 +1,11 @@
 ﻿using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
 {
@@ -11,8 +13,8 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
     {
         private readonly string _logPath;
 
-        public ObservableCollection<OptimizedFileResult> ProcessedFiles { get; set; } = new ObservableCollection<OptimizedFileResult>();
-        public OptimizedFileResult SelectedProcessedFile { get; set; }
+        public ObservableCollection<OptimizableFile> ProcessedFiles { get; set; } = new ObservableCollection<OptimizableFile>();
+        public OptimizableFile SelectedProcessedFile { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -21,17 +23,39 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             _logPath = Path.Combine(FolderHelperMethods.ConfigFolder, "Log.txt");
         }
 
-        public void AddProcessedFile(OptimizedFileResult optimizedFileResult)
-        {
-            File.AppendAllText(_logPath, $"{optimizedFileResult.OptimizationResult}|{optimizedFileResult.Path}{Environment.NewLine}");
-            ProcessedFiles.Add(optimizedFileResult);
-            OnPropertyChanged(nameof(ProcessedFiles));
-        }
+        //// Create the OnPropertyChanged method to raise the event
+        //public virtual void OnPropertyChanged(string name)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //}
 
-        // Create the OnPropertyChanged method to raise the event
-        public virtual void OnPropertyChanged(string name)
+        public void AddProcessedFile(OptimizableFile optimizedFileResult)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            if (optimizedFileResult.OptimizationResult == OptimizationResult.InProgress)
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    ProcessedFiles.Add(optimizedFileResult);
+                }));
+
+                //ProcessedFiles.Add(optimizedFileResult);
+            }
+            else
+            {
+                File.AppendAllText(_logPath, $"{optimizedFileResult.OptimizationResult}|{optimizedFileResult.Path}{Environment.NewLine}");
+
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    var iii = ProcessedFiles.IndexOf(optimizedFileResult);
+
+                    ProcessedFiles.RemoveAt(iii);
+                    ProcessedFiles.Insert(iii, optimizedFileResult);
+                }));
+            }
+
+
+
+            //OnPropertyChanged(nameof(ProcessedFiles));
         }
     }
 }

@@ -8,6 +8,7 @@ using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Ookii.Dialogs.Wpf;
+using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -31,6 +32,9 @@ namespace DeveImageOptimizerWPF.ViewModel
         public WindowState WindowState { get; set; }
         public FilesProcessingState FilesProcessingState { get; set; }
 
+        private readonly FileProcessedStateRememberer fileRememberer;
+        private readonly DirProcessedStateRememberer dirRememberer;
+
         public MainViewModel()
         {
             WindowState = StaticState.WindowStateManager.State;
@@ -41,6 +45,31 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             GoCommand = new RelayCommand(async () => await GoCommandImp(), () => true);
             BrowseCommand = new RelayCommand(() => BrowseCommandImp(), () => true);
+
+            var optimize = GetRemembererSettings();
+
+            fileRememberer = new FileProcessedStateRememberer(optimize.fileOptimize);
+            dirRememberer = new DirProcessedStateRememberer(optimize.dirOptimize);
+
+            StaticState.UserSettingsManager.State.PropertyChanged += State_PropertyChanged;
+        }
+
+        private (bool fileOptimize, bool dirOptimize) GetRemembererSettings()
+        {
+            var state = StaticState.UserSettingsManager.State;
+
+            var fileOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerDirectory;
+            var dirOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerFile;
+
+            return (fileOptimize, dirOptimize);
+        }
+
+        private void State_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var optimize = GetRemembererSettings();
+
+            fileRememberer.ShouldAlwaysOptimize = optimize.fileOptimize;
+            dirRememberer.ShouldAlwaysOptimize = optimize.dirOptimize;
         }
 
         private void FilesProcessingState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -59,12 +88,6 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, null, null, !state.HideFileOptimizerWindow, state.LogLevel, state.SaveFailedFiles);
 
-            var fileOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerDirectory;
-            var dirOptimize = state.RemembererSettings == RemembererSettings.OptimizeAlways || state.RemembererSettings == RemembererSettings.StorePerFile;
-
-            var fileRememberer = new FileProcessedStateRememberer(fileOptimize);
-            var dirRememberer = new DirProcessedStateRememberer(dirOptimize);
-
             var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, fileRememberer, dirRememberer);
 
             if (!state.ExecuteImageOptimizationParallel)
@@ -78,6 +101,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         }
 
         public ICommand BrowseCommand { get; private set; }
+
         private void BrowseCommandImp()
         {
             var folderDialog = new VistaFolderBrowserDialog();

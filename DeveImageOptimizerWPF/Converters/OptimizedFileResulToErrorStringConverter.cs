@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.Converters
 {
-    [ValueConversion(typeof(OptimizedFileResult), typeof(string))]
+    [ValueConversion(typeof(OptimizableFile), typeof(string))]
     public sealed class OptimizedFileResulToErrorStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -14,7 +14,7 @@ namespace DeveImageOptimizerWPF.Converters
             {
                 return string.Empty;
             }
-            var ofr = (OptimizedFileResult)value;
+            var ofr = (OptimizableFile)value;
             return string.Join(Environment.NewLine, ofr.Errors);
         }
 

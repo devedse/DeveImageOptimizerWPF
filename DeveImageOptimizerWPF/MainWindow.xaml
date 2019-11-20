@@ -73,6 +73,8 @@
                             <StackPanel Grid.Row="1">
                                 <Label Content="Path:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.Path, Mode=OneWay}" IsReadOnly="True"></TextBox>
+                                <Label Content="Status:"></Label>
+                                <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OptimizationResult, Mode=OneWay}" IsReadOnly="True"></TextBox>
                                 <Label Content="Original Size:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile.OriginalSize, Mode=OneWay, Converter={StaticResource kbConverter}}" IsReadOnly="True"></TextBox>
                                 <Label Content="Optimized Size:"></Label>

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.Converters
 {
-    [ValueConversion(typeof(ObservableCollection<OptimizedFileResult>), typeof(string))]
+    [ValueConversion(typeof(ObservableCollection<OptimizableFile>), typeof(string))]
     public sealed class ObservableCollectionOptimizedFileResultToSizeReducedConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -17,7 +17,7 @@ namespace DeveImageOptimizerWPF.Converters
             {
                 return string.Empty;
             }
-            var ofr = (ObservableCollection<OptimizedFileResult>)value;
+            var ofr = (ObservableCollection<OptimizableFile>)value;
             var totalOptimizedSize = ofr.Sum(t => t.OriginalSize - t.OptimizedSize);
             return ValuesToStringHelper.BytesToString(totalOptimizedSize);
         }

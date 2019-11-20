@@ -1,12 +1,13 @@
 ﻿using PropertyChanged;
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace DeveImageOptimizerWPF.State.UserSettings
 {
     [Serializable]
     [AddINotifyPropertyChangedInterface]
-    public class UserSettingsData : IChangable
+    public class UserSettingsData : IChangable, INotifyPropertyChanged
     {
         public string FileOptimizerPath { get; set; }
 
@@ -19,6 +20,8 @@ namespace DeveImageOptimizerWPF.State.UserSettings
         public bool ExecuteImageOptimizationParallel { get; set; }
         public int MaxDegreeOfParallelism { get; set; }
         public int LogLevel { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         public UserSettingsData()

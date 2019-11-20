@@ -22,6 +22,8 @@ namespace DeveImageOptimizerWPF.Converters
                     return Brushes.LightGreen;
                 case OptimizationResult.Skipped:
                     return Brushes.Yellow;
+                case OptimizationResult.InProgress:
+                    return Brushes.Blue;
                 case OptimizationResult.Failed:
                 default:
                     return Brushes.Red;
