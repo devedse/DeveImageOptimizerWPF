@@ -25,11 +25,11 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             _logPath = Path.Combine(FolderHelperMethods.ConfigFolder, "Log.txt");
         }
 
-        //// Create the OnPropertyChanged method to raise the event
-        //public virtual void OnPropertyChanged(string name)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        //}
+        // Create the OnPropertyChanged method to raise the event
+        public virtual void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public void AddProcessedFile(OptimizableFile optimizedFileResult)
         {
@@ -60,7 +60,7 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 
 
 
-            //OnPropertyChanged(nameof(ProcessedFiles));
+            OnPropertyChanged(nameof(ProcessedFiles));
         }
     }
 }
