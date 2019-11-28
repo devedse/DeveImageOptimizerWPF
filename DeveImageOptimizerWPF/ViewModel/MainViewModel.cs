@@ -30,7 +30,7 @@ namespace DeveImageOptimizerWPF.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public WindowState WindowState { get; set; }
-        public FilesProcessingState FilesProcessingState { get; set; }
+        public FileProgressState FilesProcessingState { get; set; }
 
         private readonly FileProcessedStateRememberer fileRememberer;
         private readonly DirProcessedStateRememberer dirRememberer;
@@ -38,7 +38,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         public MainViewModel()
         {
             WindowState = StaticState.WindowStateManager.State;
-            FilesProcessingState = new FilesProcessingState();
+            FilesProcessingState = new FileProgressState();
 
             WindowState.PropertyChanged += ProcessingStateData_PropertyChanged;
             FilesProcessingState.PropertyChanged += FilesProcessingState_PropertyChanged;
