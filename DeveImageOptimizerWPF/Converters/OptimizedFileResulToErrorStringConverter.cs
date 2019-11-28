@@ -1,11 +1,11 @@
-﻿using DeveImageOptimizer.State;
+﻿using DeveImageOptimizerWPF.State.ProcessingState;
 using System;
 using System.Globalization;
 using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.Converters
 {
-    [ValueConversion(typeof(OptimizableFile), typeof(string))]
+    [ValueConversion(typeof(OptimizableFileUI), typeof(string))]
     public sealed class OptimizedFileResulToErrorStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -14,7 +14,7 @@ namespace DeveImageOptimizerWPF.Converters
             {
                 return string.Empty;
             }
-            var ofr = (OptimizableFile)value;
+            var ofr = (OptimizableFileUI)value;
             return string.Join(Environment.NewLine, ofr.Errors);
         }
 
