@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
 {
@@ -20,9 +21,43 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 
         private readonly object logfilelockject = new object();
 
+        public OptimizationResult? _filter { get; set; }
+
+        public OptimizationResult? Filter
+        {
+            get => _filter;
+            set
+            {
+                _filter = value;
+                ProcessedFilesView.Refresh();
+            }
+        }
+
+
+        internal CollectionViewSource ProcessedFilesViewSource { get; set; } = new CollectionViewSource();
+        public ICollectionView ProcessedFilesView => ProcessedFilesViewSource.View;
+
+
         public FileProgressState()
         {
+            ProcessedFilesViewSource.Source = ProcessedFiles;
+            ProcessedFilesViewSource.Filter += ApplyFilter;
+
             _logPath = Path.Combine(FolderHelperMethods.ConfigFolder, "Log.txt");
+        }
+
+        private void ApplyFilter(object sender, FilterEventArgs e)
+        {
+            OptimizableFileUI fileUI = (OptimizableFileUI)e.Item;
+
+            if (_filter == null || fileUI.OptimizationResult == OptimizationResult.InProgress || fileUI.OptimizationResult == _filter.Value)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = false;
+            }
         }
 
         // Create the OnPropertyChanged method to raise the event

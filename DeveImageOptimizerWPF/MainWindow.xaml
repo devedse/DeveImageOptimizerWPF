@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:DeveImageOptimizerWPF.Converters"
         xmlns:local="clr-namespace:DeveImageOptimizerWPF"
+        xmlns:loptstate="clr-namespace:DeveImageOptimizer.State;assembly=DeveImageOptimizer"
         mc:Ignorable="d"
         Title="DeveImageOptimizer" Height="450" Width="600">
     <Window.Resources>
@@ -15,12 +16,14 @@
         <l:ObservableCollectionOptimizedFileResultToTotalSizeAfterConverter x:Key="observableCollectionOptimizedFileResultToTotalSizeAfterConverter"/>
         <l:OptimizationResultToColorConverter x:Key="optimizationResultToColorConverter"/>
         <l:OptimizedFileResulToErrorStringConverter x:Key="optimizedFileResulToErrorStringConverter"/>
+        <l:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
             <TabItem Header="Main"  DataContext="{Binding Main, Source={StaticResource Locator}}">
                 <Grid Background="AliceBlue">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -37,7 +40,24 @@
                         <Button Grid.Column="1" Content="Browse" Command="{Binding BrowseCommand}"></Button>
                     </Grid>
                     <Button Grid.Row="2" Content="Go" Command="{Binding GoCommand}"/>
-                    <Grid Grid.Row="3">
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type RadioButton}">
+                                <Setter Property="Margin" Value="10,0,0,0"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Margin" Value="10,0,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Label Content="Filter:"></Label>
+                        <RadioButton Content="All" IsChecked="{Binding Path=FilesProcessingState.Filter, Converter={StaticResource EnumToBooleanConverter}}" />
+                        <RadioButton Content="Success" IsChecked="{Binding Path=FilesProcessingState.Filter, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static loptstate:OptimizationResult.Success}}" />
+                        <RadioButton Content="Skipped" IsChecked="{Binding Path=FilesProcessingState.Filter, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static loptstate:OptimizationResult.Skipped}}" />
+                        <RadioButton Content="Failed" IsChecked="{Binding Path=FilesProcessingState.Filter, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static loptstate:OptimizationResult.Failed}}" />
+                        <RadioButton Content="InProgress" IsChecked="{Binding Path=FilesProcessingState.Filter, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static loptstate:OptimizationResult.InProgress}}" />
+                    </StackPanel>
+                    <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -49,7 +69,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Content="Processed files"></Label>
-                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFiles}" SelectedItem="{Binding FilesProcessingState.SelectedProcessedFile}">
+                            <ListBox Grid.Row="1" ItemsSource="{Binding FilesProcessingState.ProcessedFilesView}" SelectedItem="{Binding FilesProcessingState.SelectedProcessedFile}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
