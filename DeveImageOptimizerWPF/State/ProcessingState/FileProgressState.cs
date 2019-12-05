@@ -1,8 +1,11 @@
 ﻿using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
+using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State.ProcessingState;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -14,7 +17,7 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
     {
         private readonly string _logPath;
 
-        public ObservableCollection<OptimizableFileUI> ProcessedFiles { get; set; } = new ObservableCollection<OptimizableFileUI>();
+        public AutoFilteringObservableCollection<OptimizableFileUI> ProcessedFiles { get; set; } = new AutoFilteringObservableCollection<OptimizableFileUI>();
         public OptimizableFileUI SelectedProcessedFile { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -82,6 +85,16 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             else
             {
                 foundFile.Set(optimizableFile);
+
+                //This code is required to have an item that updates from Processing to Skipped be re-filtered
+                var indexOf = ProcessedFiles.IndexOf(foundFile);
+
+                var eventArgs = new NotifyCollectionChangedEventArgs(
+                                        NotifyCollectionChangedAction.Replace,
+                                        new List<object> { foundFile },
+                                        new List<object> { foundFile }, indexOf);
+
+                ProcessedFiles.RaiseCollectionChanged(eventArgs);
             }
 
             OnPropertyChanged(nameof(ProcessedFiles));
