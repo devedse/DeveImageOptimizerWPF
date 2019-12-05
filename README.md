@@ -27,6 +27,8 @@ Basically as of version 1.0.46 this tool is fully usable. You can download the e
 
 The reason the .exe file is quite big is because it includes the full LibVips library to do JPEG conversion to do accurate comparison.
 
-## Screenshot
+## Screenshots
 
-![Screenshot](Screenshot.png)
+![ScreenshotMain](ScreenshotMain.png)
+
+![ScreenshotConfig](ScreenshotConfig.png)

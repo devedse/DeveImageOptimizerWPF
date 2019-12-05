@@ -1,11 +1,15 @@
 ﻿using DeveImageOptimizer.Helpers;
 using DeveImageOptimizer.State;
+using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State.ProcessingState;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
 {
@@ -13,16 +17,50 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
     {
         private readonly string _logPath;
 
-        public ObservableCollection<OptimizableFileUI> ProcessedFiles { get; set; } = new ObservableCollection<OptimizableFileUI>();
+        public AutoFilteringObservableCollection<OptimizableFileUI> ProcessedFiles { get; set; } = new AutoFilteringObservableCollection<OptimizableFileUI>();
         public OptimizableFileUI SelectedProcessedFile { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly object logfilelockject = new object();
 
+        public OptimizationResult? _filter { get; set; }
+
+        public OptimizationResult? Filter
+        {
+            get => _filter;
+            set
+            {
+                _filter = value;
+                ProcessedFilesView.Refresh();
+            }
+        }
+
+
+        internal CollectionViewSource ProcessedFilesViewSource { get; set; } = new CollectionViewSource();
+        public ICollectionView ProcessedFilesView => ProcessedFilesViewSource.View;
+
+
         public FileProgressState()
         {
+            ProcessedFilesViewSource.Source = ProcessedFiles;
+            ProcessedFilesViewSource.Filter += ApplyFilter;
+
             _logPath = Path.Combine(FolderHelperMethods.ConfigFolder, "Log.txt");
+        }
+
+        private void ApplyFilter(object sender, FilterEventArgs e)
+        {
+            OptimizableFileUI fileUI = (OptimizableFileUI)e.Item;
+
+            if (_filter == null || fileUI.OptimizationResult == OptimizationResult.InProgress || fileUI.OptimizationResult == _filter.Value)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = false;
+            }
         }
 
         // Create the OnPropertyChanged method to raise the event
@@ -47,6 +85,16 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             else
             {
                 foundFile.Set(optimizableFile);
+
+                //This code is required to have an item that updates from Processing to Skipped be re-filtered
+                var indexOf = ProcessedFiles.IndexOf(foundFile);
+
+                var eventArgs = new NotifyCollectionChangedEventArgs(
+                                        NotifyCollectionChangedAction.Replace,
+                                        new List<object> { foundFile },
+                                        new List<object> { foundFile }, indexOf);
+
+                ProcessedFiles.RaiseCollectionChanged(eventArgs);
             }
 
             OnPropertyChanged(nameof(ProcessedFiles));
