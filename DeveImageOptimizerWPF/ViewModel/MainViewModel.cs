@@ -32,6 +32,8 @@ namespace DeveImageOptimizerWPF.ViewModel
         public WindowState WindowState { get; set; }
         public FileProgressState FilesProcessingState { get; set; }
 
+        public bool PreviewEnabled { get; set; }
+
         private readonly FileProcessedStateRememberer fileRememberer;
         private readonly DirProcessedStateRememberer dirRememberer;
 

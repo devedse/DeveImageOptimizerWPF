@@ -17,6 +17,7 @@
         <l:OptimizationResultToColorConverter x:Key="optimizationResultToColorConverter"/>
         <l:OptimizedFileResulToErrorStringConverter x:Key="optimizedFileResulToErrorStringConverter"/>
         <l:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -103,6 +104,12 @@
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedFileResultToSizeConverter}}" IsReadOnly="True"></TextBox>
                                 <Label Content="Error messages:"></Label>
                                 <TextBox Text="{Binding FilesProcessingState.SelectedProcessedFile, Mode=OneWay, Converter={StaticResource optimizedFileResulToErrorStringConverter}}" IsReadOnly="True"></TextBox>
+                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                    <Label Content="Preview Enabled:"></Label>
+                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding PreviewEnabled}"></CheckBox>
+                                </StackPanel>
+
+                                <Image Margin="0,10,0,0" Visibility="{Binding PreviewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Source="{Binding FilesProcessingState.SelectedProcessedFile.Path, Mode=OneWay}"></Image>
                             </StackPanel>
 
                         </Grid>
