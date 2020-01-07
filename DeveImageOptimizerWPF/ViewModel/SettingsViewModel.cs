@@ -4,6 +4,7 @@ using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
+using Ookii.Dialogs.Wpf;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,8 @@ namespace DeveImageOptimizerWPF.ViewModel
         public SettingsViewModel()
         {
             UserSettingsData = StaticState.UserSettingsManager.State;
-            BrowseCommand = new RelayCommand(() => BrowseCommandImp(), () => true);
+            BrowseCommandFileOptimizer = new RelayCommand(() => BrowseCommandFileOptimizerImp(), () => true);
+            BrowseCommandTempDir = new RelayCommand(() => BrowseCommandTempDirImp(), () => true);
 
             SaveCommand = new RelayCommand(SaveCommandImp, () => true);
             ResetToDefaultsCommand = new RelayCommand(ResetToDefaultsCommandImpl, () => true);
@@ -49,8 +51,8 @@ namespace DeveImageOptimizerWPF.ViewModel
             StaticState.UserSettingsManager.State.ResetToDefaults();
         }
 
-        public ICommand BrowseCommand { get; private set; }
-        private void BrowseCommandImp()
+        public ICommand BrowseCommandFileOptimizer { get; private set; }
+        private void BrowseCommandFileOptimizerImp()
         {
             var fileDialog = new OpenFileDialog()
             {
@@ -66,6 +68,24 @@ namespace DeveImageOptimizerWPF.ViewModel
             if (fileDialog.ShowDialog() == true)
             {
                 UserSettingsData.FileOptimizerPath = fileDialog.FileName;
+            }
+        }
+
+        public ICommand BrowseCommandTempDir { get; private set; }
+
+        private void BrowseCommandTempDirImp()
+        {
+            var folderDialog = new VistaFolderBrowserDialog();
+
+            string startDir = InitialDirFinder.FindStartingDirectoryBasedOnInput(UserSettingsData.TempDirectory);
+            if (Directory.Exists(startDir))
+            {
+                folderDialog.SelectedPath = startDir;
+            }
+
+            if (folderDialog.ShowDialog() == true)
+            {
+                UserSettingsData.TempDirectory = folderDialog.SelectedPath;
             }
         }
     }

@@ -86,9 +86,9 @@ namespace DeveImageOptimizerWPF.ViewModel
         {
             var state = StaticState.UserSettingsManager.State;
 
-            var fileOptimizer = new FileOptimizerProcessor(state.FileOptimizerPath, null, null, !state.HideFileOptimizerWindow, state.LogLevel, state.SaveFailedFiles);
+            var config = state.ToDeveImageOptimizerConfiguration();
 
-            var fileProcessor = new FileProcessor(fileOptimizer, FilesProcessingState, fileRememberer, dirRememberer);
+            var fileProcessor = new DeveImageOptimizerProcessor(config, FilesProcessingState, fileRememberer, dirRememberer);
 
             if (!state.ExecuteImageOptimizationParallel)
             {
