@@ -4,6 +4,10 @@ This tool uses FileOptimizer to recompress images: http://nikkhokkho.sourceforge
 The library used to do the Optimization and pixel by pixel comparing the images is named 
 [DeveImageOptimizer](https://github.com/devedse/DeveImageOptimizer)
 
+DeveImageOptimizerWPF has 2 main advantages over using Nikkho's FileOptimizer directly:
+1. DeveImageOptimizerWPF kicks of optimization in parallel, thus being way quicker
+1. DeveImageOptimizerWPF verifies images on a Pixel by Pixel basis to see if the result matches the input. (It happens sometimes that one of the 16 tools makes a mistake which could corrupt an image)
+
 ## Build status
 
 | AppVeyor (Windows build) |
