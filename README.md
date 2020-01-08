@@ -9,9 +9,11 @@ DeveImageOptimizerWPF has 2 main advantages over using Nikkho's FileOptimizer di
 1. DeveImageOptimizerWPF verifies images on a Pixel by Pixel basis to see if the result matches the input. (It happens sometimes that one of the 16 tools makes a mistake which could corrupt an image)
 
 Also checkout Papa's Best Optimizer as an alternative to my tool, it also doesn't contain the Image verification part though:
+
 https://papas-best.com/
 
 Some other advantages of my application are the use of a modern programming language (debatable I know :smile:) C#. And having fully automated builds and releases using Chocolatey:
+
 https://chocolatey.org/packages/DeveImageOptimizerWPF
 
 ## Build status
