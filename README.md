@@ -12,7 +12,7 @@ Also checkout Papa's Best Optimizer as an alternative to my tool, it also doesn'
 
 https://papas-best.com/
 
-Some other advantages of my application are the use of a modern programming language (debatable I know :smile:) C#. And having fully automated builds and releases using Chocolatey:
+Some other advantages of my application are the use of a modern programming language (debatable I know :smile:) C#. And having fully automated builds and releases using AppVeyor and Chocolatey:
 
 https://chocolatey.org/packages/DeveImageOptimizerWPF
 
