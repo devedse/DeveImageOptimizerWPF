@@ -23,7 +23,7 @@ after_build:
   - ps: .\CreateChocoPackage\PushPackage.ps1
 
 artifacts:
-  - path: DeveImageOptimizerWPF\bin\Release\netcoreapp3.0\win-x64\publish\*.exe
+  - path: DeveImageOptimizerWPF\bin\Release\netcoreapp3.1\win-x64\publish\*.exe
     name: droppackage
   - path: CreateChocoPackage\*.nupkg
     name: chocopackage
