@@ -34,8 +34,8 @@ namespace DeveImageOptimizerWPF.ViewModel
 
         public bool PreviewEnabled { get; set; }
 
-        private readonly FileProcessedStateRememberer fileRememberer;
-        private readonly DirProcessedStateRememberer dirRememberer;
+        private readonly FileProcessedStateRememberer _fileRememberer;
+        private readonly DirProcessedStateRememberer _dirRememberer;
 
         public MainViewModel()
         {
@@ -50,8 +50,8 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             var optimize = GetRemembererSettings();
 
-            fileRememberer = new FileProcessedStateRememberer(optimize.fileOptimize);
-            dirRememberer = new DirProcessedStateRememberer(optimize.dirOptimize);
+            _fileRememberer = new FileProcessedStateRememberer(optimize.fileOptimize);
+            _dirRememberer = new DirProcessedStateRememberer(optimize.dirOptimize);
 
             StaticState.UserSettingsManager.State.PropertyChanged += State_PropertyChanged;
         }
@@ -70,8 +70,8 @@ namespace DeveImageOptimizerWPF.ViewModel
         {
             var optimize = GetRemembererSettings();
 
-            fileRememberer.ShouldAlwaysOptimize = optimize.fileOptimize;
-            dirRememberer.ShouldAlwaysOptimize = optimize.dirOptimize;
+            _fileRememberer.ShouldAlwaysOptimize = optimize.fileOptimize;
+            _dirRememberer.ShouldAlwaysOptimize = optimize.dirOptimize;
         }
 
         private void FilesProcessingState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -90,16 +90,9 @@ namespace DeveImageOptimizerWPF.ViewModel
 
             var config = state.ToDeveImageOptimizerConfiguration();
 
-            var fileProcessor = new DeveImageOptimizerProcessor(config, FilesProcessingState, fileRememberer, dirRememberer);
+            var fileProcessor = new DeveImageOptimizerProcessor(config, FilesProcessingState, _fileRememberer, _dirRememberer);
 
-            if (!state.ExecuteImageOptimizationParallel)
-            {
-                await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
-            }
-            else
-            {
-                await fileProcessor.ProcessDirectoryParallel(WindowState.ProcessingDirectory, state.MaxDegreeOfParallelism);
-            }
+            await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
         }
 
         public ICommand BrowseCommand { get; private set; }

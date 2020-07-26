@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
@@ -21,7 +22,7 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly object logfilelockject = new object();
+        private readonly object _logfilelockject = new object();
 
         public OptimizationResult? _filter { get; set; }
 
@@ -68,7 +69,7 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void OptimizableFileProgressUpdated(OptimizableFile optimizableFile)
+        public Task OptimizableFileProgressUpdated(OptimizableFile optimizableFile)
         {
             if (optimizableFile.OptimizationResult != OptimizationResult.InProgress)
             {
@@ -97,6 +98,14 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
             }
 
             OnPropertyChanged(nameof(ProcessedFiles));
+
+            return Task.CompletedTask;
+        }
+
+        public Task TotalFileCountDiscovered(int count)
+        {
+            //We don't need this yet
+            return Task.CompletedTask;
         }
     }
 }
