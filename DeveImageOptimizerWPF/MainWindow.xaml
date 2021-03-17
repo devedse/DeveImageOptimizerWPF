@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:DeveImageOptimizerWPF"
         xmlns:loptstate="clr-namespace:DeveImageOptimizer.State;assembly=DeveImageOptimizer"
         mc:Ignorable="d"
-        Title="DeveImageOptimizer" Height="450" Width="600">
+        Title="DeveImageOptimizer" Height="500" Width="600">
     <Window.Resources>
         <l:KbConverter x:Key="kbConverter"/>
         <l:OptimizedFileResultToSizeConverter x:Key="optimizedFileResultToSizeConverter"/>
@@ -17,6 +17,7 @@
         <l:OptimizationResultToColorConverter x:Key="optimizationResultToColorConverter"/>
         <l:OptimizedFileResulToErrorStringConverter x:Key="optimizedFileResulToErrorStringConverter"/>
         <l:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+        <l:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid>
@@ -109,7 +110,7 @@
                                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding PreviewEnabled}"></CheckBox>
                                 </StackPanel>
 
-                                <Image Margin="0,10,0,0" Visibility="{Binding PreviewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Source="{Binding FilesProcessingState.SelectedProcessedFile.Path, Mode=OneWay}"></Image>
+                                <Image Margin="0,10,0,0" Visibility="{Binding PreviewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Source="{Binding FilesProcessingState.SelectedProcessedFile.Path, Converter={StaticResource StringToImageSourceConverter}, Mode=OneWay}"></Image>
                             </StackPanel>
 
                         </Grid>
