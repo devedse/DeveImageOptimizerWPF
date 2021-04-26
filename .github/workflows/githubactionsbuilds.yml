@@ -68,7 +68,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: dotnet-sonarscanner end /d:sonar.login=${{secrets.SONARQUBETOKEN}}
     - name: Publish
-      run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:SelfContained=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release /p:PublishSingleFile=true /p:SelfContained=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     # - name: Pack
     #   run: dotnet pack DeveImageOptimizer\DeveImageOptimizer.csproj --verbosity normal --no-build -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Run CodeCov #codecov -f ".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml"
