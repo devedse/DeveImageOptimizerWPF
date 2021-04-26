@@ -34,22 +34,6 @@ jobs:
     - name: Train Intellicode Model
       uses: microsoft/vs-intellicode@v1
 
-  build_linux:
-    needs: generate_version_number
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Install dependencies
-      run: dotnet restore DeveImageOptimizerWPF.sln
-    - name: Build
-      run: dotnet build DeveImageOptimizerWPF.sln -c Release --no-restore /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
-    - name: Test
-      run: dotnet test DeveImageOptimizerWPF.sln --no-restore --verbosity normal
-
   build_windows:
     needs: generate_version_number
     runs-on: windows-latest
@@ -104,7 +88,7 @@ jobs:
         path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
 
   release_github:
-    needs: [intellicode, build_linux, build_windows]
+    needs: [intellicode, build_windows]
     runs-on: windows-latest
     steps:
     - name: Download all artifacts
@@ -137,7 +121,7 @@ jobs:
 
 
   # release_chocolatey:
-  #   needs: [intellicode, build_linux, build_windows, release_github]
+  #   needs: [intellicode, build_windows, release_github]
   #   runs-on: windows-latest
   #   steps:
   #   - uses: actions/checkout@v2
