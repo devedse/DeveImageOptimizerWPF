@@ -81,7 +81,6 @@ jobs:
         #fail_ci_if_error: true # optional (default = false)
         verbose: true # optional (default = false)
 
-
     - uses: actions/upload-artifact@v1
       with:
         name: DeveImageOptimizerWPF_win-x64
