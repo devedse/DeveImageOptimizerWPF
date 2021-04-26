@@ -87,7 +87,7 @@ jobs:
         path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
 
   release_github:
-    needs: [intellicode, build_windows]
+    needs: [generate_version_number,intellicode, build_windows]
     runs-on: windows-latest
     steps:
     - name: Download all artifacts
