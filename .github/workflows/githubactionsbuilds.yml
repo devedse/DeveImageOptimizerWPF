@@ -58,7 +58,7 @@ jobs:
     - name: Install dependencies
       run: dotnet restore DeveImageOptimizerWPF.sln
     - name: SonarQube begin
-      run: dotnet-sonarscanner begin /k:"DeveImageOptimizer" /o:"devedse-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONARQUBETOKEN}} /d:sonar.cs.opencover.reportsPaths=".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml" /d:sonar.coverage.exclusions="DeveImageOptimizer.ConsoleApp/**/*.cs,DeveImageOptimizer.Tests/**/*.cs"
+      run: dotnet-sonarscanner begin /k:"DeveImageOptimizerWPF" /o:"devedse-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONARQUBETOKEN}} /d:sonar.cs.opencover.reportsPaths=".\DeveImageOptimizerWPF.Tests\TestResults\Coverage\coverage.opencover.xml" /d:sonar.coverage.exclusions="DeveImageOptimizerWPF.Tests/**/*.cs"
     - name: Build
       run: dotnet build DeveImageOptimizerWPF.sln -c Release --no-restore /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Test
