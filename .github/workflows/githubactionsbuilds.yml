@@ -88,7 +88,7 @@ jobs:
 
   release_github:
     needs: [generate_version_number, intellicode, build_windows]
-    runs-on: linux-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Download all artifacts
       uses: actions/download-artifact@v2
