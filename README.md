@@ -18,9 +18,29 @@ https://chocolatey.org/packages/DeveImageOptimizerWPF
 
 ## Build status
 
-| AppVeyor (Windows build) |
-|:------------------------:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/0xdjwyxh2iq21p4y?svg=true)](https://ci.appveyor.com/project/devedse/deveimageoptimizerwpf) |
+| GitHubActions Builds |
+|:--------------------:|
+| [![GitHubActions Builds](https://github.com/devedse/DeveImageOptimizerWPF/workflows/GitHubActionsBuilds/badge.svg)](https://github.com/devedse/DeveImageOptimizerWPF/actions/workflows/githubactionsbuilds.yml) |
+
+## Code Coverage status
+
+| CodeCov |
+|:-------:|
+| [![codecov](https://codecov.io/gh/devedse/DeveImageOptimizerWPF/branch/master/graph/badge.svg)](https://codecov.io/gh/devedse/DeveImageOptimizerWPF) |
+
+(Reason why Coverage is quite low is because a lot of tests can't run on the Build Server)
+
+## Code Quality Status
+
+| SonarQube |
+|:---------:|
+| [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=DeveImageOptimizerWPF&metric=alert_status)](https://sonarcloud.io/dashboard?id=DeveImageOptimizer) |
+
+## Chocolatey
+
+| Chocolatey |
+|:-----:|
+| [![NuGet](https://img.shields.io/chocolatey/v/deveimageoptimizerwpf)](https://community.chocolatey.org/packages/deveimageoptimizerwpf) |
 
 ## More information
 
