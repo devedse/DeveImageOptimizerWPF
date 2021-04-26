@@ -1,0 +1,161 @@
+name: GitHubActionsBuilds
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  generate_version_number:
+    runs-on: ubuntu-latest
+    outputs:
+      build_number: ${{ steps.buildnumber.outputs.build_number }}
+    steps:
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v3
+      with:
+        token: ${{secrets.github_token}}
+
+  intellicode:
+    needs: generate_version_number
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # We need to fetch the entire Git history in order to verify the authenticity.
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Build with dotnet
+      run: dotnet build DeveImageOptimizerWPF.sln -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}} # Project needs to build before training a model.
+    - name: Train Intellicode Model
+      uses: microsoft/vs-intellicode@v1
+
+  build_linux:
+    needs: generate_version_number
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dependencies
+      run: dotnet restore DeveImageOptimizerWPF.sln
+    - name: Build
+      run: dotnet build DeveImageOptimizerWPF.sln -c Release --no-restore /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+    - name: Test
+      run: dotnet test DeveImageOptimizerWPF.sln --no-restore --verbosity normal
+
+  build_windows:
+    needs: generate_version_number
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core @ Latest
+      uses: actions/setup-dotnet@v1
+      with:
+        source-url: https://nuget.pkg.github.com/<organization>/index.json
+        dotnet-version: 5.0.x
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '15' # The JDK version to make available on the path.
+        java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
+        architecture: x64 # (x64 or x86) - defaults to x64
+    - name: Install tools
+      run: |
+        dotnet tool install --global dotnet-sonarscanner
+        dotnet tool install --global dotnet-reportgenerator-globaltool
+    - name: Install dependencies
+      run: dotnet restore DeveImageOptimizerWPF.sln
+    - name: SonarQube begin
+      run: dotnet-sonarscanner begin /k:"DeveImageOptimizer" /o:"devedse-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONARQUBETOKEN}} /d:sonar.cs.opencover.reportsPaths=".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml" /d:sonar.coverage.exclusions="DeveImageOptimizer.ConsoleApp/**/*.cs,DeveImageOptimizer.Tests/**/*.cs"
+    - name: Build
+      run: dotnet build DeveImageOptimizerWPF.sln -c Release --no-restore /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+    - name: Test
+      run: dotnet test DeveImageOptimizerWPF.sln --verbosity normal --no-build -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=\`"cobertura,opencover\`" /p:CoverletOutput=./TestResults/Coverage/
+    - name: SonarQube end
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet-sonarscanner end /d:sonar.login=${{secrets.SONARQUBETOKEN}}
+    - name: Publish
+      run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+    # - name: Pack
+    #   run: dotnet pack DeveImageOptimizer\DeveImageOptimizer.csproj --verbosity normal --no-build -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+    - name: Run CodeCov #codecov -f ".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml"
+      uses: codecov/codecov-action@v1
+      with:
+        #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        files: .\DeveImageOptimizerWPF.Tests\TestResults\Coverage\coverage.opencover.xml # optional
+        #flags: unittests # optional
+        #name: codecov-umbrella # optional
+        #fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: DeveImageOptimizerWPF_win-x64
+        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
+
+  release_github:
+    needs: [intellicode, build_linux, build_windows]
+    runs-on: windows-latest
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path: ./artifacts/
+
+    - name: Display structure of downloaded files
+      run: |
+        cd ./artifacts/
+        ls -R
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
+        release_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
+        body: |
+          ${{ github.event.head_commit.message }}
+        draft: false
+        prerelease: false
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
+        files: |
+          ./DeveImageOptimizerWPF_win-x64/Output/DeveImageOptimizerWPF.exe
+
+
+  # release_chocolatey:
+  #   needs: [intellicode, build_linux, build_windows, release_github]
+  #   runs-on: windows-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Create Release
+  #     id: create_release
+  #     uses: actions/create-release@v1
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+  #     with:
+  #       tag_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
+  #       release_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
+  #       body: |
+  #         ${{ github.event.head_commit.message }}
+  #       draft: false
+  #       prerelease: false
+  #   - name: Run CreatePackage.ps1 script
+  #     run: .\CreateChocoPackage\CreatePackage.ps1
+  #     shell: powershell
+  #   - name: Run PushPackage.ps1 script
+  #     run: .\CreateChocoPackage\PushPackage.ps1 -chocolateykey ${{secrets.CHOCOLATEYTOKEN}}
+  #     shell: powershell

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveImageOptimizerWPF", "DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj", "{01AB1C40-C596-4D29-AFB8-B6DD31586DFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeveImageOptimizerWPF", "DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj", "{01AB1C40-C596-4D29-AFB8-B6DD31586DFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveImageOptimizerWPF.Tests", "DeveImageOptimizerWPF.Tests\DeveImageOptimizerWPF.Tests.csproj", "{883E92F9-F416-4BE8-99EA-7B755418E6B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{01AB1C40-C596-4D29-AFB8-B6DD31586DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01AB1C40-C596-4D29-AFB8-B6DD31586DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01AB1C40-C596-4D29-AFB8-B6DD31586DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883E92F9-F416-4BE8-99EA-7B755418E6B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{883E92F9-F416-4BE8-99EA-7B755418E6B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{883E92F9-F416-4BE8-99EA-7B755418E6B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{883E92F9-F416-4BE8-99EA-7B755418E6B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
