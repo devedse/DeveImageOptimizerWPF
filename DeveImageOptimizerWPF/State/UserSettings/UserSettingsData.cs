@@ -15,7 +15,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
 
         public string TempDirectory { get; set; }
 
-        public bool HideFileOptimizerWindow { get; set; }
+        public bool HideOptimizerWindow { get; set; }
 
         public RemembererSettings RemembererSettings { get; set; }
 
@@ -42,7 +42,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
         {
             FileOptimizerPath = config.FileOptimizerPath;
             TempDirectory = config.TempDirectory;
-            HideFileOptimizerWindow = config.HideFileOptimizerWindow;
+            HideOptimizerWindow = config.HideOptimizerWindow;
             SaveFailedFiles = config.SaveFailedFiles;
 
             ExecuteImageOptimizationParallel = config.ExecuteImageOptimizationParallel;
@@ -61,7 +61,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
             {
                 ExecuteImageOptimizationParallel = ExecuteImageOptimizationParallel,
                 FileOptimizerPath = FileOptimizerPath,
-                HideFileOptimizerWindow = HideFileOptimizerWindow,
+                HideOptimizerWindow = HideOptimizerWindow,
                 LogLevel = LogLevel,
                 MaxDegreeOfParallelism = MaxDegreeOfParallelism,
                 SaveFailedFiles = SaveFailedFiles,

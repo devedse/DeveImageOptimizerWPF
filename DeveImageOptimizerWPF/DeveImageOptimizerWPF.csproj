@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
-    <PackageReference Include="DeveCoolLib" Version="1.0.504" />
-    <PackageReference Include="DeveImageOptimizer" Version="1.0.575" />
+    <PackageReference Include="DeveCoolLib" Version="1.0.505" />
+    <PackageReference Include="DeveImageOptimizer" Version="1.0.579" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.3.3" />

@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$fileToPackage = "DeveImageOptimizerWPF\bin\Release\netcoreapp3.1\win-x64\publish\DeveImageOptimizerWPF.exe"
+$fileToPackage = "artifacts\DeveImageOptimizerWPF_win-x64\DeveImageOptimizerWPF.exe"
 
 #Install-Module -Name FormatPowerShellCode -Scope CurrentUser -Confirm:$False
 

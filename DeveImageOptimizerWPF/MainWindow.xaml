@@ -170,7 +170,7 @@
                                 <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableImageOptimizationLevels}" SelectedItem="{Binding UserSettingsData.ImageOptimizationLevel}"></ComboBox>
                             </Grid>
                             <CheckBox Content="Directly call optimizers (Skip FileOptimizerFull)" IsChecked="{Binding UserSettingsData.DirectlyCallOptimizers, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
-                            <CheckBox Content="Hide FileOptimizer Window" IsChecked="{Binding UserSettingsData.HideFileOptimizerWindow, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UserSettingsData.DirectlyCallOptimizers, Converter={StaticResource InverseBooleanConverter}}" Margin="0,10,0,0"></CheckBox>
+                            <CheckBox Content="Hide Optimizer Window (Only set to false for debugging)" IsChecked="{Binding UserSettingsData.HideOptimizerWindow, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
