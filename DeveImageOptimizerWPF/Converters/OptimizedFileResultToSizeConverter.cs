@@ -1,4 +1,4 @@
-﻿using DeveImageOptimizer.Helpers;
+﻿using DeveCoolLib.Conversion;
 using DeveImageOptimizerWPF.State.ProcessingState;
 using System;
 using System.Globalization;
@@ -16,7 +16,7 @@ namespace DeveImageOptimizerWPF.Converters
                 return string.Empty;
             }
             var ofr = (OptimizableFileUI)value;
-            return ValuesToStringHelper.BytesToString(ofr.OriginalSize - ofr.OptimizedSize);
+            return ValuesToStringHelper.BytesToString(ofr.OriginalSize - ofr.OptimizedSize, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

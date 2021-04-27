@@ -1,4 +1,4 @@
-﻿using DeveImageOptimizer.Helpers;
+﻿using DeveCoolLib.Conversion;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -10,7 +10,7 @@ namespace DeveImageOptimizerWPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ValuesToStringHelper.BytesToString((long)value);
+            return ValuesToStringHelper.BytesToString((long)value, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

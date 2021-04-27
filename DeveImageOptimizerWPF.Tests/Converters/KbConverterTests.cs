@@ -16,7 +16,7 @@ namespace DeveImageOptimizerWPF.Tests.Converters
             var result = kbConverter.Convert(123456789L, null, null, CultureInfo.InvariantCulture);
 
             //Assert
-            Assert.Equal("117,7MB", result.ToString());
+            Assert.Equal("117.7MB", result.ToString());
         }
     }
 }
