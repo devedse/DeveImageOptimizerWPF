@@ -117,6 +117,8 @@ jobs:
         tag_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
         files: |
           ./DeveImageOptimizerWPF_win-x64/Output/DeveImageOptimizerWPF.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   # release_chocolatey:
