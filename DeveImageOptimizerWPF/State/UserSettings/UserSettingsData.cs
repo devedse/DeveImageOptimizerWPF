@@ -1,4 +1,5 @@
 ﻿using DeveImageOptimizer.FileProcessing;
+using DeveImageOptimizer.ImageOptimization;
 using PropertyChanged;
 using System;
 using System.ComponentModel;
@@ -23,7 +24,11 @@ namespace DeveImageOptimizerWPF.State.UserSettings
         public bool ExecuteImageOptimizationParallel { get; set; }
         public int MaxDegreeOfParallelism { get; set; }
 
+        public bool DirectlyCallOptimizers { get; set; }
+
         public int LogLevel { get; set; }
+
+        public ImageOptimizationLevel ImageOptimizationLevel { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,6 +48,10 @@ namespace DeveImageOptimizerWPF.State.UserSettings
             ExecuteImageOptimizationParallel = config.ExecuteImageOptimizationParallel;
             MaxDegreeOfParallelism = config.MaxDegreeOfParallelism;
 
+            DirectlyCallOptimizers = config.CallOptimizationToolsDirectlyInsteadOfThroughFileOptimizer;
+
+            ImageOptimizationLevel = config.ImageOptimizationLevel;
+
             LogLevel = config.LogLevel;
         }
 
@@ -56,7 +65,9 @@ namespace DeveImageOptimizerWPF.State.UserSettings
                 LogLevel = LogLevel,
                 MaxDegreeOfParallelism = MaxDegreeOfParallelism,
                 SaveFailedFiles = SaveFailedFiles,
-                TempDirectory = TempDirectory
+                TempDirectory = TempDirectory,
+                CallOptimizationToolsDirectlyInsteadOfThroughFileOptimizer = DirectlyCallOptimizers,
+                ImageOptimizationLevel = ImageOptimizationLevel
             };
             return config;
         }

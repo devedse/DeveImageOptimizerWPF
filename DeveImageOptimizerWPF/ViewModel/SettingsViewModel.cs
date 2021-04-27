@@ -1,4 +1,5 @@
-﻿using DeveImageOptimizerWPF.Helpers;
+﻿using DeveImageOptimizer.ImageOptimization;
+using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.UserSettings;
 using GalaSoft.MvvmLight;
@@ -19,6 +20,7 @@ namespace DeveImageOptimizerWPF.ViewModel
     {
         public UserSettingsData UserSettingsData { get; }
 
+        public IEnumerable<ImageOptimizationLevel> AvailableImageOptimizationLevels { get; }
         public IEnumerable<int> MaxParallelismChoices { get; }
         public IEnumerable<int> AvailableLogLevels { get; }
 
@@ -33,6 +35,7 @@ namespace DeveImageOptimizerWPF.ViewModel
             SaveCommand = new RelayCommand(SaveCommandImp, () => true);
             ResetToDefaultsCommand = new RelayCommand(ResetToDefaultsCommandImpl, () => true);
 
+            AvailableImageOptimizationLevels = Enum.GetValues<ImageOptimizationLevel>();
             MaxParallelismChoices = Enumerable.Range(1, Environment.ProcessorCount).ToList();
             AvailableLogLevels = new List<int>() { 0, 1, 2, 3, 4 };
 
