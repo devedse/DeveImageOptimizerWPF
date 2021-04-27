@@ -56,7 +56,8 @@ Remove-Comments($chocoinstallpsfilepath)
 
 $ReleaseVersionNumberFull = (Get-Item $fullPathFileToPackage).VersionInfo.FileVersion
 $ReleaseVersionNumberShort = $ReleaseVersionNumberFull.Substring(0, $ReleaseVersionNumberFull.LastIndexOf('.'))
-$checksum = checksum -t sha256 -f $fullPathFileToPackage
+$checksum = (Get-FileHash $fullPathFileToPackage -Algorithm SHA256).Hash
+#$checksum = checksum -t sha256 -f $fullPathFileToPackage
 #$checksum = checksum -t sha256 -f $destinationFilePath7z
 
 $nuspecFile = (Get-ChildItem "$($directorypath)\*" -include *.nuspec).FullName
