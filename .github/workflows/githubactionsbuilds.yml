@@ -116,7 +116,7 @@ jobs:
       with:
         tag_name: 1.0.${{needs.generate_version_number.outputs.build_number}}
         files: |
-          ./DeveImageOptimizerWPF_win-x64/Output/DeveImageOptimizerWPF.exe
+          ./artifacts/DeveImageOptimizerWPF_win-x64/Output/DeveImageOptimizerWPF.exe
 
 
   # release_chocolatey:
