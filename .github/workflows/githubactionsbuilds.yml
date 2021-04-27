@@ -57,7 +57,6 @@ jobs:
     - name: Test
       run: dotnet test DeveImageOptimizerWPF.sln --verbosity normal --no-build -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=\`"cobertura,opencover\`" /p:CoverletOutput=./TestResults/Coverage/
     - name: SonarQube end
-      if: github.ref == 'refs/heads/master'
       run: dotnet-sonarscanner end /d:sonar.login=${{secrets.SONARQUBETOKEN}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
