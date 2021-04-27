@@ -1,10 +1,6 @@
 name: GitHubActionsBuilds
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: push
 
 jobs:
   generate_version_number:
@@ -42,10 +38,7 @@ jobs:
     - name: Setup .NET Core @ Latest
       uses: actions/setup-dotnet@v1
       with:
-        source-url: https://nuget.pkg.github.com/<organization>/index.json
-        dotnet-version: 5.0.x
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+        dotnet-version: 5.0.x  
     - uses: actions/setup-java@v1
       with:
         java-version: '15' # The JDK version to make available on the path.
@@ -64,9 +57,10 @@ jobs:
     - name: Test
       run: dotnet test DeveImageOptimizerWPF.sln --verbosity normal --no-build -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=\`"cobertura,opencover\`" /p:CoverletOutput=./TestResults/Coverage/
     - name: SonarQube end
+      if: github.ref == 'refs/heads/master'
+      run: dotnet-sonarscanner end /d:sonar.login=${{secrets.SONARQUBETOKEN}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: dotnet-sonarscanner end /d:sonar.login=${{secrets.SONARQUBETOKEN}}
     - name: Publish
       run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release /p:PublishSingleFile=true /p:SelfContained=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     # - name: Pack
@@ -89,6 +83,7 @@ jobs:
   release_github:
     needs: [generate_version_number, intellicode, build_windows]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
     - name: Download all artifacts
       uses: actions/download-artifact@v2
@@ -124,6 +119,7 @@ jobs:
   release_chocolatey:
     needs: [intellicode, build_windows, release_github]
     runs-on: windows-latest
+    if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v2
     - name: Download all artifacts
