@@ -80,7 +80,7 @@ jobs:
       with:
         name: DeveImageOptimizerWPF_win-x64
         path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
-        - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
       with:
         name: DeveImageOptimizerWPF_win-x64_trimmed
         path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmed\DeveImageOptimizerWPF.exe
