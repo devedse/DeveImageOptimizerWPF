@@ -61,9 +61,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish
-      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
-    - name: Publish (With Trim)
-      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmed\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+    - name: Publish (Without Trim)
+      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishuntrimmed\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     # - name: Pack
     #   run: dotnet pack DeveImageOptimizer\DeveImageOptimizer.csproj --verbosity normal --no-build -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Run CodeCov #codecov -f ".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml"
@@ -82,8 +82,8 @@ jobs:
         path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
     - uses: actions/upload-artifact@v1
       with:
-        name: DeveImageOptimizerWPF_win-x64_trimmed
-        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmed\DeveImageOptimizerWPF.exe
+        name: DeveImageOptimizerWPF_win-x64_untrimmed
+        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishuntrimmed\DeveImageOptimizerWPF.exe
 
   release_github:
     needs: [generate_version_number, intellicode, build_windows]
