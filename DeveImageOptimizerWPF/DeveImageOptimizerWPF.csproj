@@ -24,6 +24,7 @@
     <TrimmerRootAssembly Include="System.Runtime.Extensions" />
     <TrimmerRootAssembly Include="System.Runtime.InteropServices" />
     <TrimmerRootAssembly Include="System.Runtime.CompilerServices.VisualC" />
+    <TrimmerRootAssembly Include="System.Diagnostics.Debug" />
   </ItemGroup>
 
 </Project>
