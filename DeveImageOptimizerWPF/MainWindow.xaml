@@ -190,6 +190,7 @@
                                 </ComboBox>
                             </Grid>
                             <CheckBox Content="Save failed files as {FILENAME}__FAILED" IsChecked="{Binding UserSettingsData.SaveFailedFiles, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
+                            <CheckBox Content="Keep file attributes (Created/Modified time)" IsChecked="{Binding UserSettingsData.KeepFileAttributes, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
                             <CheckBox Content="Use parallel image optimization" IsChecked="{Binding UserSettingsData.ExecuteImageOptimizationParallel, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0"></CheckBox>
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>

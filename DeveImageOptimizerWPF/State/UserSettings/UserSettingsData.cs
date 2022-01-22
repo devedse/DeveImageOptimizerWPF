@@ -20,6 +20,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
         public RemembererSettings RemembererSettings { get; set; }
 
         public bool SaveFailedFiles { get; set; }
+        public bool KeepFileAttributes { get; set; }
 
         public bool ExecuteImageOptimizationParallel { get; set; }
         public int MaxDegreeOfParallelism { get; set; }
@@ -44,6 +45,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
             TempDirectory = config.TempDirectory;
             HideOptimizerWindow = config.HideOptimizerWindow;
             SaveFailedFiles = config.SaveFailedFiles;
+            KeepFileAttributes = config.KeepFileAttributes;
 
             ExecuteImageOptimizationParallel = config.ExecuteImageOptimizationParallel;
             MaxDegreeOfParallelism = config.MaxDegreeOfParallelism;
@@ -65,6 +67,7 @@ namespace DeveImageOptimizerWPF.State.UserSettings
                 LogLevel = LogLevel,
                 MaxDegreeOfParallelism = MaxDegreeOfParallelism,
                 SaveFailedFiles = SaveFailedFiles,
+                KeepFileAttributes = KeepFileAttributes,
                 TempDirectory = TempDirectory,
                 CallOptimizationToolsDirectlyInsteadOfThroughFileOptimizer = DirectlyCallOptimizers,
                 ImageOptimizationLevel = ImageOptimizationLevel

@@ -24,7 +24,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Build with dotnet
       run: dotnet build DeveImageOptimizerWPF.sln -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}} # Project needs to build before training a model.
     - name: Train Intellicode Model
@@ -38,7 +38,7 @@ jobs:
     - name: Setup .NET Core @ Latest
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x  
+        dotnet-version: 6.0.x  
     - uses: actions/setup-java@v1
       with:
         java-version: '15' # The JDK version to make available on the path.
@@ -63,11 +63,11 @@ jobs:
     - name: Publish
       run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Publish (Without Trim)
-      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishuntrimmed\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:TrimMode=CopyUsed /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publishuntrimmed\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:TrimMode=CopyUsed /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Publish
-      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmedlink\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:TrimMode=Link /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
+      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publishtrimmedlink\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:TrimMode=Link /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Publish
-      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmedcopyused\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:TrimMode=CopyUsed /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}    
+      run: dotnet publish .\DeveImageOptimizerWPF\DeveImageOptimizerWPF.csproj -r win-x64 -c Release -o "DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publishtrimmedcopyused\" /p:PublishSingleFile=true /p:SelfContained=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=true /p:TrimMode=CopyUsed /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}    
     # - name: Pack
     #   run: dotnet pack DeveImageOptimizer\DeveImageOptimizer.csproj --verbosity normal --no-build -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Run CodeCov #codecov -f ".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml"
@@ -83,19 +83,19 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: DeveImageOptimizerWPF_win-x64
-        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
+        path: DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
     - uses: actions/upload-artifact@v1
       with:
         name: DeveImageOptimizerWPF_win-x64_untrimmed
-        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishuntrimmed\DeveImageOptimizerWPF.exe
+        path: DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publishuntrimmed\DeveImageOptimizerWPF.exe
     - uses: actions/upload-artifact@v1
       with:
         name: DeveImageOptimizerWPF_win-x64_trimlink
-        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmedlink\DeveImageOptimizerWPF.exe
+        path: DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publishtrimmedlink\DeveImageOptimizerWPF.exe
     - uses: actions/upload-artifact@v1
       with:
         name: DeveImageOptimizerWPF_win-x64_trimcopyused
-        path: DeveImageOptimizerWPF\bin\Release\net5.0-windows\win-x64\publishtrimmedcopyused\DeveImageOptimizerWPF.exe
+        path: DeveImageOptimizerWPF\bin\Release\net6.0-windows\win-x64\publishtrimmedcopyused\DeveImageOptimizerWPF.exe
 
   release_github:
     needs: [generate_version_number, intellicode, build_windows]
