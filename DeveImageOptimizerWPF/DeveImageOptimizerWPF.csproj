@@ -9,6 +9,8 @@
 		<nullable>enable</nullable>
 		<UseWPF>true</UseWPF>
 		<StartupObject />
+		<_SuppressWpfTrimError>true</_SuppressWpfTrimError>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,6 +28,25 @@
 		<TrimmerRootAssembly Include="System.Runtime.InteropServices" />
 		<TrimmerRootAssembly Include="System.Runtime.CompilerServices.VisualC" />
 		<TrimmerRootAssembly Include="System.Diagnostics.Debug" />
+		<TrimmerRootAssembly Include="System.Windows" />
+		<TrimmerRootAssembly Include="PresentationCore" />
+		<TrimmerRootAssembly Include="UIAutomationProvider" />
+		<TrimmerRootAssembly Include="PresentationFramework" />
+
+
+		<TrimmerRootAssembly Include="UIAutomationTypes" />
+		<TrimmerRootAssembly Include="WindowsBase" />
+		<TrimmerRootAssembly Include="System.ComponentModel" />
+
+
+		<TrimmerRootAssembly Include="Accessibility" />
+		<TrimmerRootAssembly Include="Microsoft.Win32.Primitives" />
+		<TrimmerRootAssembly Include="System.Threading" />
+		<TrimmerRootAssembly Include="System.Threading.Thread" />
+		<TrimmerRootAssembly Include="System.Private.CoreLib" />
+		<TrimmerRootAssembly Include="System.Private.Uri" />
+		<TrimmerRootAssembly Include="System.Runtime.CompilerServices.Unsafe" />
+		<TrimmerRootAssembly Include="System.Private.CoreLib" />
 	</ItemGroup>
 
 </Project>
