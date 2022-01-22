@@ -12,8 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using CommonServiceLocator;
-using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
@@ -28,26 +27,11 @@ namespace DeveImageOptimizerWPF.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
-
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel? Main => App.Current.Services.GetService<MainViewModel>();
 
-        public SettingsViewModel Settings => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+        public SettingsViewModel? Settings => App.Current.Services.GetService<SettingsViewModel>();
 
         public static void Cleanup()
         {

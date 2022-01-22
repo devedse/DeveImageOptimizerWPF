@@ -2,8 +2,8 @@
 using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.UserSettings;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using PropertyChanged;
@@ -16,7 +16,7 @@ using System.Windows.Input;
 namespace DeveImageOptimizerWPF.ViewModel
 {
     [AddINotifyPropertyChangedInterface]
-    public class SettingsViewModel : ViewModelBase
+    public class SettingsViewModel : ObservableRecipient
     {
         public UserSettingsData UserSettingsData { get; }
 

@@ -5,10 +5,9 @@ using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State;
 using DeveImageOptimizerWPF.State.MainWindowState;
 using DeveImageOptimizerWPF.State.UserSettings;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Ookii.Dialogs.Wpf;
-using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -27,7 +26,7 @@ namespace DeveImageOptimizerWPF.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ObservableRecipient
     {
         public WindowState WindowState { get; set; }
         public FileProgressState FilesProcessingState { get; set; }
@@ -66,7 +65,7 @@ namespace DeveImageOptimizerWPF.ViewModel
             return (fileOptimize, dirOptimize);
         }
 
-        private void State_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void State_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var optimize = GetRemembererSettings();
 
@@ -74,11 +73,11 @@ namespace DeveImageOptimizerWPF.ViewModel
             _dirRememberer.ShouldAlwaysOptimize = optimize.dirOptimize;
         }
 
-        private void FilesProcessingState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void FilesProcessingState_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
         }
 
-        private void ProcessingStateData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ProcessingStateData_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             StaticState.WindowStateManager.Save();
         }

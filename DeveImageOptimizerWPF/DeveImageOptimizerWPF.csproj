@@ -12,10 +12,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommonServiceLocator" Version="2.0.6" />
 		<PackageReference Include="DeveCoolLib" Version="1.0.509" />
 		<PackageReference Include="DeveImageOptimizer" Version="1.0.586" />
-		<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
 	</ItemGroup>
