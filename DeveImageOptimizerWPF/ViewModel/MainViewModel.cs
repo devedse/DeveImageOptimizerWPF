@@ -1,3 +1,4 @@
+using DeveImageOptimizer.Exceptions;
 using DeveImageOptimizer.FileProcessing;
 using DeveImageOptimizer.State;
 using DeveImageOptimizer.State.StoringProcessedDirectories;
@@ -8,7 +9,9 @@ using DeveImageOptimizerWPF.State.UserSettings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Ookii.Dialogs.Wpf;
+using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -32,6 +35,7 @@ namespace DeveImageOptimizerWPF.ViewModel
         public FileProgressState FilesProcessingState { get; set; }
 
         public bool PreviewEnabled { get; set; }
+        public bool IsOptimizing { get; set; }
 
         private readonly FileProcessedStateRememberer _fileRememberer;
         private readonly DirProcessedStateRememberer _dirRememberer;
@@ -85,13 +89,35 @@ namespace DeveImageOptimizerWPF.ViewModel
         public ICommand GoCommand { get; private set; }
         private async Task GoCommandImp()
         {
-            var state = StaticState.UserSettingsManager.State;
+            IsOptimizing = true;
+            try
+            {
+                var state = StaticState.UserSettingsManager.State;
 
-            var config = state.ToDeveImageOptimizerConfiguration();
+                var config = state.ToDeveImageOptimizerConfiguration();
 
-            var fileProcessor = new DeveImageOptimizerProcessor(config, FilesProcessingState, _fileRememberer, _dirRememberer);
+                var fileProcessor = new DeveImageOptimizerProcessor(config, FilesProcessingState, _fileRememberer, _dirRememberer);
 
-            await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
+                await fileProcessor.ProcessDirectory(WindowState.ProcessingDirectory);
+            }
+            catch (FileOptimizerNotFoundException ex)
+            {
+                ShowFileOptimizerNotFoundError(ex.Message);
+            }
+            catch (AggregateException ex) when (ex.InnerExceptions?.OfType<FileOptimizerNotFoundException>()?.Any() == true)
+            {
+                var message = ex.InnerExceptions?.OfType<FileOptimizerNotFoundException>().FirstOrDefault()?.Message;
+                ShowFileOptimizerNotFoundError(message);
+            }
+            finally
+            {
+                IsOptimizing = false;
+            }
+        }
+
+        private static void ShowFileOptimizerNotFoundError(string? message)
+        {
+            System.Windows.MessageBox.Show(message, "Could not find FileOptimizer.exe", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
 
         public ICommand BrowseCommand { get; private set; }

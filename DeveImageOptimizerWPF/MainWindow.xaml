@@ -42,7 +42,7 @@
                         <TextBox Grid.Column="0" Text="{Binding WindowState.ProcessingDirectory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <Button Grid.Column="1" Content="Browse" Command="{Binding BrowseCommand}"></Button>
                     </Grid>
-                    <Button Grid.Row="2" Content="Go" Command="{Binding GoCommand}"/>
+                    <Button Grid.Row="2" Content="{l:SwitchBinding IsOptimizing, In Progress..., Go}" Command="{Binding GoCommand}" IsEnabled="{Binding Path=IsOptimizing, Converter={StaticResource InverseBooleanConverter}}"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type RadioButton}">
