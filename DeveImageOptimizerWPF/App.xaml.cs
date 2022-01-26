@@ -1,6 +1,7 @@
 ﻿using DeveCoolLib.ConsoleOut;
 using DeveCoolLib.Streams;
 using DeveImageOptimizerWPF.ViewModel;
+using DeveImageOptimizerWPF.ViewModel.ObservableData;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
@@ -15,22 +16,9 @@ namespace DeveImageOptimizerWPF
     {
         public App()
         {
-            ConfigureConsoleLogger();
-
             Services = ConfigureServices();
 
             this.InitializeComponent();
-        }
-
-        private void ConfigureConsoleLogger()
-        {
-            var originalOut = Console.OpenStandardOutput();
-            var movingMemoryStream = new MovingMemoryStream();
-            
-            var multiOut = new MultiStream(originalOut, movingMemoryStream);
-            var writer = new StreamWriter(multiOut);
-
-            Console.SetOut(writer);
         }
 
         /// <summary>
@@ -55,6 +43,8 @@ namespace DeveImageOptimizerWPF
             //services.AddSingleton<IClipboardService, ClipboardService>();
             //services.AddSingleton<IShareService, ShareService>();
             //services.AddSingleton<IEmailService, EmailService>();
+            var loggerExtractinator = LoggerExtractinator.CreateLoggerExtractinatorAndSetupConsoleRedirection();
+            services.AddSingleton(loggerExtractinator);
 
             // Viewmodels
             services.AddTransient<MainViewModel>();

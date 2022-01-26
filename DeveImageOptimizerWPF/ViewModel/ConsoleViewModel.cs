@@ -1,28 +1,27 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using DeveImageOptimizerWPF.ViewModel.ObservableData;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using PropertyChanged;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
+using System.Windows.Input;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
     [AddINotifyPropertyChangedInterface]
     public class ConsoleViewModel : ObservableRecipient
     {
-        public ObservableCollection<string> ConsoleOutput { get; set; } = new ObservableCollection<string>(new List<string>() { "Hoi", "Doei" });
-        public string ConsoleInput { get; set; } = "HALLO";
-        public string Testje => ConsoleOutput.Count().ToString();
+        public LoggerExtractinator LoggerExtractinator { get; set; }
 
-        public ConsoleViewModel()
+        public int ConsoleFontSize { get; set; } = 12;
+        public ICommand IncreaseFontSizeCommand { get; }
+        public ICommand DecreaseFontSizeCommand { get; }
+
+        public ConsoleViewModel(LoggerExtractinator loggerExtractinator)
         {
-            //Console.OpenStandardOutput();
+            LoggerExtractinator = loggerExtractinator;
 
-        }
-
-        public async Task Runner()
-        {
-
+            IncreaseFontSizeCommand = new RelayCommand(() => ConsoleFontSize = Math.Clamp(ConsoleFontSize + 2, 12, 30));
+            DecreaseFontSizeCommand = new RelayCommand(() => ConsoleFontSize = Math.Clamp(ConsoleFontSize - 2, 12, 30));
         }
     }
 }

@@ -223,19 +223,29 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Console" DataContext="{Binding Console, Source={StaticResource Locator}}">
+            <TabItem Header="Console Log" DataContext="{Binding Console, Source={StaticResource Locator}}">
                 <Grid>
                     <ScrollViewer Name="Scroller" Margin="0" Background="Black">
                         <StackPanel>
-                            <TextBox Text="{Binding Testje, Mode=OneWay}"></TextBox>
-                            <ItemsControl ItemsSource="{Binding ConsoleOutput, Mode=OneWay}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Padding="10,5" Content="Font Size -" Command="{Binding DecreaseFontSizeCommand}"></Button>
+                                <Button Grid.Column="1" Padding="10,5" Content="Font Size +" Command="{Binding IncreaseFontSizeCommand}"></Button>
+                                <TextBlock Grid.Column="2" Padding="10,5" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding ConsoleFontSize, StringFormat=Font size: \{0\}}" Background="White"></TextBlock>
+                                <TextBlock Grid.Column="3" Padding="10,5" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding LoggerExtractinator.LineCount, StringFormat=Line count: \{0\}}" Background="White"></TextBlock>
+                            </Grid>
+                            <ItemsControl ItemsSource="{Binding LoggerExtractinator.LogLines, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" Foreground="White" FontFamily="Consolas"/>
+                                        <TextBlock Text="{Binding Path=.}" Foreground="White" FontFamily="Consolas" FontSize="{Binding Path=DataContext.ConsoleFontSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                            <TextBox Text="{Binding ConsoleInput, Mode=TwoWay}" Background="Black" Foreground="White" FontFamily="Consolas" Name="InputBlock" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" />
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
