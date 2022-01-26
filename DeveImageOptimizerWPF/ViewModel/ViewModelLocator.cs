@@ -13,6 +13,7 @@
 */
 
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
@@ -29,9 +30,19 @@ namespace DeveImageOptimizerWPF.ViewModel
         {
         }
 
-        public MainViewModel? Main => App.Current.Services.GetService<MainViewModel>();
+        public MainViewModel? Main => ResolveViewModelOrThrow<MainViewModel>();
+        public SettingsViewModel? Settings => ResolveViewModelOrThrow<SettingsViewModel>();
+        public ConsoleViewModel? Console => ResolveViewModelOrThrow<ConsoleViewModel>();
 
-        public SettingsViewModel? Settings => App.Current.Services.GetService<SettingsViewModel>();
+        private T ResolveViewModelOrThrow<T>()
+        {
+            var viewModel = App.Current.Services.GetService<T>();
+            if (viewModel == null)
+            {
+                throw new InvalidOperationException($"Could not resolve ViewModel {typeof(T).FullName}. Ensure it's configued in 'App.xaml.cs'");
+            }
+            return viewModel;
+        }
 
         public static void Cleanup()
         {

@@ -1,6 +1,9 @@
-﻿using DeveImageOptimizerWPF.ViewModel;
+﻿using DeveCoolLib.ConsoleOut;
+using DeveCoolLib.Streams;
+using DeveImageOptimizerWPF.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace DeveImageOptimizerWPF
@@ -12,9 +15,22 @@ namespace DeveImageOptimizerWPF
     {
         public App()
         {
+            ConfigureConsoleLogger();
+
             Services = ConfigureServices();
 
             this.InitializeComponent();
+        }
+
+        private void ConfigureConsoleLogger()
+        {
+            var originalOut = Console.OpenStandardOutput();
+            var movingMemoryStream = new MovingMemoryStream();
+            
+            var multiOut = new MultiStream(originalOut, movingMemoryStream);
+            var writer = new StreamWriter(multiOut);
+
+            Console.SetOut(writer);
         }
 
         /// <summary>
@@ -43,6 +59,7 @@ namespace DeveImageOptimizerWPF
             // Viewmodels
             services.AddTransient<MainViewModel>();
             services.AddTransient<SettingsViewModel>();
+            services.AddTransient<ConsoleViewModel>();
 
             return services.BuildServiceProvider();
         }
