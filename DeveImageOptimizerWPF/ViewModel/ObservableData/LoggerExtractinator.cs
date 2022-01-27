@@ -20,7 +20,6 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
             var consoleOutputStream = new MovingMemoryStream();
 
             var multiOut = new MultiStream(originalOut, consoleOutputStream);
-            //var multiOut = new MultiStream(originalOut);
             var writer = new StreamWriter(multiOut)
             {
                 AutoFlush = true

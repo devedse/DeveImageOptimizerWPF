@@ -37,9 +37,6 @@ namespace DeveImageOptimizerWPF.ViewModel
         public bool PreviewEnabled { get; set; }
         public bool IsOptimizing { get; set; }
 
-        public ICommand ShowConsoleCommand { get; }
-        public ICommand HideConsoleCommand { get; }
-
         private readonly FileProcessedStateRememberer _fileRememberer;
         private readonly DirProcessedStateRememberer _dirRememberer;
 
