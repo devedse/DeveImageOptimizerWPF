@@ -29,11 +29,11 @@ namespace DeveImageOptimizerWPF.ViewModel
         public SettingsViewModel()
         {
             UserSettingsData = StaticState.UserSettingsManager.State;
-            BrowseCommandFileOptimizer = new RelayCommand(() => BrowseCommandFileOptimizerImp(), () => true);
-            BrowseCommandTempDir = new RelayCommand(() => BrowseCommandTempDirImp(), () => true);
+            BrowseCommandFileOptimizer = new RelayCommand(BrowseCommandFileOptimizerImp);
+            BrowseCommandTempDir = new RelayCommand(BrowseCommandTempDirImp);
 
-            SaveCommand = new RelayCommand(SaveCommandImp, () => true);
-            ResetToDefaultsCommand = new RelayCommand(ResetToDefaultsCommandImpl, () => true);
+            SaveCommand = new RelayCommand(SaveCommandImp);
+            ResetToDefaultsCommand = new RelayCommand(ResetToDefaultsCommandImpl);
 
             AvailableImageOptimizationLevels = Enum.GetValues<ImageOptimizationLevel>();
             MaxParallelismChoices = Enumerable.Range(1, Environment.ProcessorCount).ToList();

@@ -48,8 +48,8 @@ namespace DeveImageOptimizerWPF.ViewModel
             WindowState.PropertyChanged += ProcessingStateData_PropertyChanged;
             FilesProcessingState.PropertyChanged += FilesProcessingState_PropertyChanged;
 
-            GoCommand = new RelayCommand(async () => await GoCommandImp(), () => true);
-            BrowseCommand = new RelayCommand(() => BrowseCommandImp(), () => true);
+            GoCommand = new AsyncRelayCommand(GoCommandImp);
+            BrowseCommand = new RelayCommand(BrowseCommandImp);
 
             var optimize = GetRemembererSettings();
 
