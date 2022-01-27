@@ -245,7 +245,7 @@
 
                     <TabControl Grid.Row="1">
                         <TabItem Header="Logger basic">
-                            <ScrollViewer Grid.Row="1" Name="Scroller" Margin="0" Background="Black" HorizontalScrollBarVisibility="Auto" h:ScrollViewerExtensions.AlwaysScrollToEnd="{Binding FollowTail}">
+                            <ScrollViewer Grid.Row="1" Name="Scroller" Margin="0" Background="Black" HorizontalScrollBarVisibility="Auto" h:ScrollViewerExtensions.AlwaysScrollToEnd="True">
                                 <ItemsControl ItemsSource="{Binding LoggerExtractinator.LogLines, Mode=OneWay}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>

@@ -50,7 +50,7 @@
 
                 <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Index}" Grid.Column="1" FontWeight="Bold" Margin="0,0,50,0" />
 
-                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Message}" Grid.Column="2" TextWrapping="Wrap"/>
+                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Message}" Grid.Column="2" TextWrapping="NoWrap"/>
             </Grid>
         </DataTemplate>
 
@@ -97,7 +97,7 @@
         <ItemsControl ItemsSource="{Binding LogLines, ElementName=LogViewerControl}" Style="{StaticResource LogViewerStyle}">
             <ItemsControl.Template>
                 <ControlTemplate>
-                    <ScrollViewer CanContentScroll="True">
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto">
                         <ItemsPresenter/>
                     </ScrollViewer>
                 </ControlTemplate>

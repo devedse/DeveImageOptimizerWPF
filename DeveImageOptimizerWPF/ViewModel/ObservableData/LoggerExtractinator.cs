@@ -45,10 +45,7 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
         {
             _reader = new StreamReader(movingMemoryStream);
 
-            Console.WriteLine("Creating logreader 1 :)");
-            Console.WriteLine("Creating logreader 2 :)");
-            Console.WriteLine("Creating logreader 3 :)");
-            Console.WriteLine("Creating logreader 4 :)");
+            Console.WriteLine("Created Log Extractor.");
         }
 
         private void GoRun()
