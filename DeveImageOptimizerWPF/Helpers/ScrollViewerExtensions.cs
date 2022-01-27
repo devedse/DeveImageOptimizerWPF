@@ -19,8 +19,15 @@ namespace DeveImageOptimizerWPF.Helpers
             if (sender is ScrollViewer scroll)
             {
                 bool alwaysScrollToEnd = (e.NewValue != null) && (bool)e.NewValue;
-                scroll.ScrollToEnd();
-                scroll.ScrollChanged += ScrollChanged;
+                if (alwaysScrollToEnd)
+                {
+                    scroll.ScrollToEnd();
+                    scroll.ScrollChanged += ScrollChanged;
+                }
+                else
+                {
+                    scroll.ScrollChanged -= ScrollChanged;
+                }
             }
             else
             {

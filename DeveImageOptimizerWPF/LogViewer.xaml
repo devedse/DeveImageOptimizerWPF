@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:DeveImageOptimizerWPF"
              xmlns:logviewer="clr-namespace:DeveImageOptimizerWPF.LogViewerData"
              mc:Ignorable="d" 
+             x:Name="LogViewerControl"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="ItemsControl" x:Key="LogViewerStyle">
@@ -31,7 +32,9 @@
         <Style TargetType="{x:Type TextBlock}" x:Key="baseStyle">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontFamily" Value="Consolas" />
-            <Setter Property="FontSize" Value="20" />
+            <!--<Setter Property="FontSize" Value="{Binding LogViewerFontSize}" />-->
+            <!--<Setter Property="FontSize" Value="{Binding Path=DataContext.LogViewerFontSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />-->
+            <Setter Property="FontSize" Value="{Binding LogViewerFontSize, ElementName=LogViewerControl}" />
         </Style>
         <!--<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource baseStyle}"></Style>-->
 
@@ -43,9 +46,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding DateTime}" Grid.Column="0" FontWeight="Bold" Margin="5,0,5,0"/>
+                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding DateTime}" Grid.Column="0" FontWeight="Bold" Margin="5,0,50,0"/>
 
-                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Index}" Grid.Column="1" FontWeight="Bold" Margin="0,0,2,0" />
+                <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Index}" Grid.Column="1" FontWeight="Bold" Margin="0,0,50,0" />
 
                 <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Message}" Grid.Column="2" TextWrapping="Wrap"/>
             </Grid>
@@ -87,9 +90,11 @@
     </UserControl.Resources>
 
     <DockPanel Background="Black">
-        <TextBlock Style="{StaticResource baseStyle}" Text="{Binding Count, StringFormat='{}{0} Items'}" DockPanel.Dock="Top"/>
+        
+        <!--<TextBlock Foreground="White" FontSize="{Binding LogViewerFontSize, ElementName=LogViewerControl}" Text="{Binding LogLines.Count, ElementName=LogViewerControl, StringFormat='{}{0} Items'}" DockPanel.Dock="Top"/>-->
+        
 
-        <ItemsControl ItemsSource="{Binding}" Style="{StaticResource LogViewerStyle}">
+        <ItemsControl ItemsSource="{Binding LogLines, ElementName=LogViewerControl}" Style="{StaticResource LogViewerStyle}">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer CanContentScroll="True">

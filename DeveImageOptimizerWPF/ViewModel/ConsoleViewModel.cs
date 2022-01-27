@@ -17,7 +17,6 @@ namespace DeveImageOptimizerWPF.ViewModel
         public ICommand IncreaseFontSizeCommand { get; }
         public ICommand DecreaseFontSizeCommand { get; }
 
-        public bool FollowTail { get; set; } = false;
         public ScrollViewerExtensionConfig ScrollConfig { get; set; } = new ScrollViewerExtensionConfig() { AlwaysScrollToEnd = true };
 
         public ConsoleViewModel(LoggerExtractinator loggerExtractinator)

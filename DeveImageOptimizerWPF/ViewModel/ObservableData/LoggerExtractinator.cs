@@ -1,5 +1,6 @@
 ﻿using DeveCoolLib.ConsoleOut;
 using DeveCoolLib.Streams;
+using DeveImageOptimizerWPF.LogViewerData;
 using IX.Observable;
 using PropertyChanged;
 using System;
@@ -37,11 +38,17 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
         private bool _isAlreadyRunning = false;
 
         public ObservableQueue<string> LogLines { get; set; } = new ObservableQueue<string>();
+        public ObservableQueue<LogEntry> LogLinesEntry { get; set; } = new ObservableQueue<LogEntry>();
         private int lineCount = 0;
 
         private LoggerExtractinator(MovingMemoryStream movingMemoryStream)
         {
             _reader = new StreamReader(movingMemoryStream);
+
+            Console.WriteLine("Creating logreader 1 :)");
+            Console.WriteLine("Creating logreader 2 :)");
+            Console.WriteLine("Creating logreader 3 :)");
+            Console.WriteLine("Creating logreader 4 :)");
         }
 
         private void GoRun()
@@ -69,11 +76,16 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
                     {
                         var lineToAdd = $"{lineCount,4}: {logLine}";
                         LogLines.Enqueue(lineToAdd);
+                        LogLinesEntry.Enqueue(new LogEntry() { DateTime = DateTime.Now, Index = lineCount, Message = logLine });
                         lineCount++;
 
                         while (LogLines.Count > 1000)
                         {
                             LogLines.Dequeue();
+                        }
+                        while (LogLinesEntry.Count > 1000)
+                        {
+                            LogLinesEntry.Dequeue();
                         }
                     }));
                 }

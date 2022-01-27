@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace DeveImageOptimizerWPF
@@ -20,38 +21,75 @@ namespace DeveImageOptimizerWPF
         private int index;
 
         //public ObservableCollection<LogEntry> LogEntries { get; set; }
-        public ObservableQueue<LogEntry> LogEntries { get; set; }
+
+        public static readonly DependencyProperty LogLinesProperty = DependencyProperty.Register(
+            "LogLines",
+            typeof(ObservableQueue<LogEntry>),
+            typeof(LogViewer),
+            new PropertyMetadata(new ObservableQueue<LogEntry>(new List<LogEntry>() { new LogEntry() { DateTime = DateTime.Now, Index = 0, Message = "Test" } })));
+
+        public ObservableQueue<LogEntry> LogLines
+        {
+            get
+            {
+                return (ObservableQueue<LogEntry>)GetValue(LogLinesProperty);
+            }
+            set
+            {
+                SetValue(LogLinesProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty LogViewerFontSizeProperty = DependencyProperty.Register(
+                    "LogViewerFontSize",
+                    typeof(int),
+                    typeof(LogViewer),
+                    new PropertyMetadata(12));
+
+        public int LogViewerFontSize
+        {
+            get
+            {
+                return (int)GetValue(LogViewerFontSizeProperty);
+            }
+            set
+            {
+                SetValue(LogViewerFontSizeProperty, value);
+            }
+        }
 
         public LogViewer()
         {
             InitializeComponent();
 
+            //this.DataContext = this;
+
             random = new Random();
             words = TestData.Split(' ').ToList();
             maxword = words.Count - 1;
 
-            DataContext = LogEntries = new ObservableQueue<LogEntry>();
-            Enumerable.Range(0, 200)
-                      .ToList()
-                      .ForEach(x => LogEntries.Add(GetRandomEntry()));
+            //LogEntries = new ObservableQueue<LogEntry>();
+            //Enumerable.Range(0, 200)
+            //          .ToList()
+            //          .ForEach(x => LogEntries.Add(GetRandomEntry()));
 
-            Timer = new Timer(x => AddRandomEntry(), null, 1000, 10);
+            //Timer = new Timer(x => AddRandomEntry(), null, 1000, 10);
         }
 
         private System.Threading.Timer Timer;
         private System.Random random;
-        private void AddRandomEntry()
-        {
-            Dispatcher.BeginInvoke(() =>
-            {
-                LogEntries.Enqueue(GetRandomEntry());
+        //private void AddRandomEntry()
+        //{
+        //    Dispatcher.BeginInvoke(() =>
+        //    {
+        //        LogEntries.Enqueue(GetRandomEntry());
 
-                while (LogEntries.Count > 1000)
-                {
-                    LogEntries.Dequeue();
-                }
-            });
-        }
+        //        while (LogEntries.Count > 1000)
+        //        {
+        //            LogEntries.Dequeue();
+        //        }
+        //    });
+        //}
 
         private LogEntry GetRandomEntry()
         {
