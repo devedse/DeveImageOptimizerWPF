@@ -1,8 +1,8 @@
 ﻿using DeveCoolLib.ConsoleOut;
 using DeveCoolLib.Streams;
+using IX.Observable;
 using PropertyChanged;
 using System;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,8 +36,8 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
         private object _lockject = new object();
         private bool _isAlreadyRunning = false;
 
-        public ObservableCollection<string> LogLines { get; set; } = new ObservableCollection<string>();
-        public int LineCount => LogLines.Count;
+        public ObservableQueue<string> LogLines { get; set; } = new ObservableQueue<string>();
+        private int lineCount = 0;
 
         private LoggerExtractinator(MovingMemoryStream movingMemoryStream)
         {
@@ -67,8 +67,14 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
                 {
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        LogLines.Add(logLine);
+                        var lineToAdd = $"{lineCount,4}: {logLine}";
+                        LogLines.Enqueue(lineToAdd);
+                        lineCount++;
 
+                        while (LogLines.Count > 1000)
+                        {
+                            LogLines.Dequeue();
+                        }
                     }));
                 }
                 else
