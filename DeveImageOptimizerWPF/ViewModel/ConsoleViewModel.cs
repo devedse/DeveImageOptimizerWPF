@@ -1,4 +1,5 @@
-﻿using DeveImageOptimizerWPF.ViewModel.ObservableData;
+﻿using DeveImageOptimizerWPF.Helpers;
+using DeveImageOptimizerWPF.ViewModel.ObservableData;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using PropertyChanged;
@@ -15,6 +16,9 @@ namespace DeveImageOptimizerWPF.ViewModel
         public int ConsoleFontSize { get; set; } = 12;
         public ICommand IncreaseFontSizeCommand { get; }
         public ICommand DecreaseFontSizeCommand { get; }
+
+        public bool FollowTail { get; set; } = false;
+        public ScrollViewerExtensionConfig ScrollConfig { get; set; } = new ScrollViewerExtensionConfig() { AlwaysScrollToEnd = true };
 
         public ConsoleViewModel(LoggerExtractinator loggerExtractinator)
         {
