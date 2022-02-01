@@ -19,6 +19,8 @@ namespace DeveImageOptimizerWPF
             Services = ConfigureServices();
 
             this.InitializeComponent();
+
+            Console.WriteLine("DeveImageOptimizerWPF started");
         }
 
         /// <summary>
