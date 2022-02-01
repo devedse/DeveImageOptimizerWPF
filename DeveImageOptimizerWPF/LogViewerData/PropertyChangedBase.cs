@@ -9,7 +9,7 @@ namespace DeveImageOptimizerWPF.LogViewerData
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            Application.Current.Dispatcher.BeginInvoke(() =>
+            Application.Current?.Dispatcher?.BeginInvoke(() =>
             {
                 PropertyChangedEventHandler handler = PropertyChanged;
                 if (handler != null)

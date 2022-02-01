@@ -8,33 +8,47 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace DeveImageOptimizerWPF.ViewModel.ObservableData
 {
     [AddINotifyPropertyChangedInterface]
     public class LoggerExtractinator
     {
+        private static object _Lockject = new object();
+        private static bool _HasInstance = false;
+        private static TextWriter? _OriginalOutTextWriter = null;
+
         public static LoggerExtractinator CreateLoggerExtractinatorAndSetupConsoleRedirection()
         {
-            var originalOut = Console.OpenStandardOutput();
-            var consoleOutputStream = new MovingMemoryStream();
-
-            var multiOut = new MultiStream(originalOut, consoleOutputStream);
-            var writer = new StreamWriter(multiOut)
+            lock (_Lockject)
             {
-                AutoFlush = true
-            };
+                if (_HasInstance)
+                {
+                    throw new InvalidOperationException($"Cannot create multiple instances of the {nameof(LoggerExtractinator)}");
+                }
+                _HasInstance = true;
+                _OriginalOutTextWriter = Console.Out;
+                var originalOut = Console.OpenStandardOutput();
+                var consoleOutputStream = new MovingMemoryStream();
 
-            Console.SetOut(writer);
+                var multiOut = new MultiStream(originalOut, consoleOutputStream);
+                var writer = new StreamWriter(multiOut)
+                {
+                    AutoFlush = true
+                };
 
-            var extractinator = new LoggerExtractinator(consoleOutputStream);
-            extractinator.GoRun();
-            return extractinator;
+                Console.SetOut(writer);
+
+                var extractinator = new LoggerExtractinator(consoleOutputStream);
+                return extractinator;
+            }
         }
 
         private readonly TextReader _reader;
-        private object _lockject = new object();
-        private bool _isAlreadyRunning = false;
+
+        private bool _isRunning = false;
+        private Task _runningTask;
 
         public ObservableQueue<string> LogLines { get; set; } = new ObservableQueue<string>();
         public ObservableQueue<LogEntry> LogLinesEntry { get; set; } = new ObservableQueue<LogEntry>();
@@ -43,47 +57,71 @@ namespace DeveImageOptimizerWPF.ViewModel.ObservableData
         private LoggerExtractinator(MovingMemoryStream movingMemoryStream)
         {
             _reader = new StreamReader(movingMemoryStream);
-
-            Console.WriteLine("Created Log Extractor.");
+            _runningTask = Task.Run(Runner);
         }
 
-        private void GoRun()
+        public void DestroyAndRevertConsoleOut()
         {
-            lock (_lockject)
+            lock (_Lockject)
             {
-                if (_isAlreadyRunning)
+                _isRunning = false;
+                _runningTask.Wait();
+                if (_OriginalOutTextWriter != null)
                 {
-                    return;
+                    Console.SetOut(_OriginalOutTextWriter);
                 }
-                _isAlreadyRunning = true;
+                _HasInstance = false;
             }
-
-            Task.Run(Runner);
         }
 
         private void Runner()
         {
-            while (true)
+            _isRunning = true;
+            var dispatcher = Application.Current?.Dispatcher;
+
+            while (_isRunning)
             {
                 var logLine = _reader.ReadLine();
                 if (logLine != null)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    try
                     {
-                        var lineToAdd = $"{lineCount,4}: {logLine}";
-                        LogLines.Enqueue(lineToAdd);
-                        LogLinesEntry.Enqueue(new LogEntry() { DateTime = DateTime.Now, Index = lineCount, Message = logLine });
-                        lineCount++;
+                        var toInvoke = new Action(() =>
+                        {
+                            try
+                            {
+                                var lineToAdd = $"{lineCount,4}: {logLine}";
+                                LogLines.Enqueue(lineToAdd);
+                                LogLinesEntry.Enqueue(new LogEntry() { DateTime = DateTime.Now, Index = lineCount, Message = logLine });
+                                lineCount++;
 
-                        while (LogLines.Count > 1000)
+                                while (LogLines.Count > 1000)
+                                {
+                                    LogLines.Dequeue();
+                                }
+                                while (LogLinesEntry.Count > 1000)
+                                {
+                                    LogLinesEntry.Dequeue();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                //Swallow exception as this usually only happens when you kill the application
+                            }
+                        });
+                        if (dispatcher != null)
                         {
-                            LogLines.Dequeue();
+                            dispatcher.BeginInvoke(toInvoke);
                         }
-                        while (LogLinesEntry.Count > 1000)
+                        else
                         {
-                            LogLinesEntry.Dequeue();
+                            toInvoke();
                         }
-                    }));
+                    }
+                    catch (Exception ex)
+                    {
+                        //Swallow exception as this usually only happens when you kill the application
+                    }
                 }
                 else
                 {
