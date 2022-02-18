@@ -14,11 +14,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DeveCoolLib" Version="1.0.512" />
-		<PackageReference Include="DeveImageOptimizer" Version="1.0.591" />
+		<PackageReference Include="DeveCoolLib" Version="1.0.513" />
+		<PackageReference Include="DeveImageOptimizer" Version="1.0.594" />
 		<PackageReference Include="IX.Observable" Version="0.7.3" />
 		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
-		<PackageReference Include="ObservableConcurrentQueue" Version="1.1.0" />
+		<PackageReference Include="ObservableConcurrentQueue" Version="2.0.1" />
 		<PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
 		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
 	</ItemGroup>
