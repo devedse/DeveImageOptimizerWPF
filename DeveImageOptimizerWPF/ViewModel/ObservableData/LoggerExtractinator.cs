@@ -1,5 +1,4 @@
-﻿using DeveCoolLib.ConsoleOut;
-using DeveCoolLib.Streams;
+﻿using DeveCoolLib.Streams;
 using DeveImageOptimizerWPF.LogViewerData;
 using IX.Observable;
 using PropertyChanged;

@@ -1,10 +1,7 @@
-﻿using DeveCoolLib.ConsoleOut;
-using DeveCoolLib.Streams;
-using DeveImageOptimizerWPF.ViewModel;
+﻿using DeveImageOptimizerWPF.ViewModel;
 using DeveImageOptimizerWPF.ViewModel.ObservableData;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
 using System.Windows;
 
 namespace DeveImageOptimizerWPF
