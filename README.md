@@ -34,7 +34,7 @@ https://chocolatey.org/packages/DeveImageOptimizerWPF
 
 | SonarQube |
 |:---------:|
-| [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=DeveImageOptimizerWPF&metric=alert_status)](https://sonarcloud.io/dashboard?id=DeveImageOptimizer) |
+| [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=DeveImageOptimizerWPF&metric=alert_status)](https://sonarcloud.io/dashboard?id=DeveImageOptimizerWPF) |
 
 ## Chocolatey
 
