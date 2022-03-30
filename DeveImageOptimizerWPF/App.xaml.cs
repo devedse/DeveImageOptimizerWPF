@@ -37,11 +37,6 @@ namespace DeveImageOptimizerWPF
         {
             var services = new ServiceCollection();
 
-            //services.AddSingleton<IFilesService, FilesService>();
-            //services.AddSingleton<ISettingsService, SettingsService>();
-            //services.AddSingleton<IClipboardService, ClipboardService>();
-            //services.AddSingleton<IShareService, ShareService>();
-            //services.AddSingleton<IEmailService, EmailService>();
             var loggerExtractinator = LoggerExtractinator.CreateLoggerExtractinatorAndSetupConsoleRedirection();
             services.AddSingleton(loggerExtractinator);
 
