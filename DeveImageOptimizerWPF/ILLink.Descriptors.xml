@@ -1,0 +1,5 @@
+<linker>
+	<!--<assembly fullname="DeveImageOptimizerWPF" preserve="all" />
+	<assembly fullname="PresentationFramework" preserve="all" />
+	<assembly fullname="System.Configuration.ConfigurationManager" preserve="all" />-->
+</linker>
