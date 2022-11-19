@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net7.0-windows</TargetFramework>
 		<!--<DisableWinExeOutputInference>true</DisableWinExeOutputInference>-->
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
 		<Version>1.0.0.0</Version>
@@ -15,12 +15,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="DeveCoolLib" Version="1.0.548" />
-		<PackageReference Include="DeveImageOptimizer" Version="1.0.629" />
+		<PackageReference Include="DeveImageOptimizer" Version="1.0.631" />
 		<PackageReference Include="IX.Observable" Version="0.7.3" />
 		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="ObservableConcurrentQueue" Version="2.0.1" />
 		<PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
-		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
