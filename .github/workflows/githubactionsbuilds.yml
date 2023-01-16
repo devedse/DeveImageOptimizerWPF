@@ -6,9 +6,10 @@ jobs:
   generate_version_number:
     runs-on: ubuntu-latest
     outputs:
-      build_number: ${{ steps.buildnumber.outputs.build_number }}
+      build_number: ${{ github.ref == 'refs/heads/master' && steps.buildnumber.outputs.build_number || 1 }}
     steps:
     - name: Generate build number
+      if: github.ref == 'refs/heads/master'
       id: buildnumber
       uses: einaregilsson/build-number@v3
       with:
@@ -51,12 +52,14 @@ jobs:
     - name: Install dependencies
       run: dotnet restore DeveImageOptimizerWPF.sln
     - name: SonarQube begin
+      if: github.repository_owner == 'devedse'
       run: dotnet-sonarscanner begin /k:"DeveImageOptimizerWPF" /o:"devedse-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONARQUBETOKEN}} /d:sonar.cs.opencover.reportsPaths=".\DeveImageOptimizerWPF.Tests\TestResults\Coverage\coverage.opencover.xml" /d:sonar.coverage.exclusions="DeveImageOptimizerWPF.Tests/**/*.cs"
     - name: Build
       run: dotnet build DeveImageOptimizerWPF.sln -c Release --no-restore /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Test
       run: dotnet test DeveImageOptimizerWPF.sln --verbosity normal --no-build -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=\`"cobertura,opencover\`" /p:CoverletOutput=./TestResults/Coverage/
     - name: SonarQube end
+      if: github.repository_owner == 'devedse'
       run: dotnet-sonarscanner end /d:sonar.login=${{secrets.SONARQUBETOKEN}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
