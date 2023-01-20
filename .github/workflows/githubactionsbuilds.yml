@@ -106,7 +106,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
     - name: Download all artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         path: ./artifacts/
 
@@ -143,7 +143,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Download all artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         path: ./artifacts/
     - name: Run CreatePackage.ps1 script
