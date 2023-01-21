@@ -75,7 +75,7 @@ jobs:
     # - name: Pack
     #   run: dotnet pack DeveImageOptimizer\DeveImageOptimizer.csproj --verbosity normal --no-build -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Run CodeCov #codecov -f ".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml"
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
       with:
         #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         files: .\DeveImageOptimizerWPF.Tests\TestResults\Coverage\coverage.opencover.xml # optional
@@ -84,19 +84,19 @@ jobs:
         #fail_ci_if_error: true # optional (default = false)
         verbose: true # optional (default = false)
 
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64_untrimmed
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publishuntrimmed\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64_trimlink
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publishtrimmedlink\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64_trimcopyused
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publishtrimmedcopyused\DeveImageOptimizerWPF.exe
@@ -107,7 +107,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
     - name: Download all artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         path: ./artifacts/
 
@@ -144,7 +144,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Download all artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         path: ./artifacts/
     - name: Run CreatePackage.ps1 script
