@@ -142,7 +142,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <ScrollViewer Grid.Row="0" Margin="0,0,0,35">
+                    <ScrollViewer Grid.Row="0">
                         <StackPanel>
                             <Label Content="FileOptimizer Path:"></Label>
                             <Grid HorizontalAlignment="Stretch">
@@ -209,7 +209,19 @@
                                 <Label Grid.Column="0">LogLevel:</Label>
                                 <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableLogLevels}" SelectedItem="{Binding UserSettingsData.LogLevel}"></ComboBox>
                             </Grid>
-
+                            <Label Content="Files to optimize:"></Label>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" Content="OptimizeJpg" IsChecked="{Binding UserSettingsData.OptimizeJpg, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                <CheckBox Grid.Column="1" Content="OptimizePng" IsChecked="{Binding UserSettingsData.OptimizePng, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                <CheckBox Grid.Column="2" Content="OptimizeGif" IsChecked="{Binding UserSettingsData.OptimizeGif, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                <CheckBox Grid.Column="3" Content="OptimizeBmp" IsChecked="{Binding UserSettingsData.OptimizeBmp, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                            </Grid>
 
                         </StackPanel>
                     </ScrollViewer>

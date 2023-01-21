@@ -27,12 +27,17 @@ namespace DeveImageOptimizerWPF.State.UserSettings
 
         public bool DirectlyCallOptimizers { get; set; }
 
-        public int LogLevel { get; set; }
-
         public ImageOptimizationLevel ImageOptimizationLevel { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public bool OptimizeJpg { get; set; }
+        public bool OptimizePng { get; set; }
+        public bool OptimizeGif { get; set; }
+        public bool OptimizeBmp { get; set; }
 
+        public int LogLevel { get; set; }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public UserSettingsData()
         {
@@ -54,6 +59,11 @@ namespace DeveImageOptimizerWPF.State.UserSettings
 
             ImageOptimizationLevel = config.ImageOptimizationLevel;
 
+            OptimizeJpg = config.OptimizeJpg;
+            OptimizePng = config.OptimizePng;
+            OptimizeGif = config.OptimizeGif;
+            OptimizeBmp = config.OptimizeBmp;
+
             LogLevel = config.LogLevel;
         }
 
@@ -70,7 +80,11 @@ namespace DeveImageOptimizerWPF.State.UserSettings
                 KeepFileAttributes = KeepFileAttributes,
                 TempDirectory = TempDirectory,
                 CallOptimizationToolsDirectlyInsteadOfThroughFileOptimizer = DirectlyCallOptimizers,
-                ImageOptimizationLevel = ImageOptimizationLevel
+                ImageOptimizationLevel = ImageOptimizationLevel,
+                OptimizeJpg = OptimizeJpg,
+                OptimizePng = OptimizePng,
+                OptimizeGif = OptimizeGif,
+                OptimizeBmp = OptimizeBmp
             };
             return config;
         }
