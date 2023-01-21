@@ -74,7 +74,7 @@ jobs:
     # - name: Pack
     #   run: dotnet pack DeveImageOptimizer\DeveImageOptimizer.csproj --verbosity normal --no-build -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}}
     - name: Run CodeCov #codecov -f ".\DeveImageOptimizer.Tests\TestResults\Coverage\coverage.opencover.xml"
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
       with:
         #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         files: .\DeveImageOptimizerWPF.Tests\TestResults\Coverage\coverage.opencover.xml # optional
