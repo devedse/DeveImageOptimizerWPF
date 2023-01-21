@@ -17,11 +17,15 @@ namespace DeveImageOptimizerWPF.Tests.ViewModel.ObservableData
             Console.WriteLine("Before");
             var instance = LoggerExtractinator.CreateLoggerExtractinatorAndSetupConsoleRedirection();
             Console.WriteLine("During");
-            Thread.Sleep(100);
+            int waitedXTimes = 0;
+            while(!instance.LogLines.Any())
+            {
+                waitedXTimes++;
+                Thread.Sleep(10);
+            }
             instance.DestroyAndRevertConsoleOut();
-            Console.WriteLine("After");
+            Console.WriteLine($"After: {waitedXTimes}");
 
-            Thread.Sleep(100);
             Assert.Single(instance.LogLines);
             Assert.Single(instance.LogLinesEntry);
 
