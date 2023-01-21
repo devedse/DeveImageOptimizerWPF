@@ -83,19 +83,19 @@ jobs:
         #fail_ci_if_error: true # optional (default = false)
         verbose: true # optional (default = false)
 
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64_untrimmed
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publishuntrimmed\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64_trimlink
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publishtrimmedlink\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: DeveImageOptimizerWPF_win-x64_trimcopyused
         path: DeveImageOptimizerWPF\bin\Release\net7.0-windows\win-x64\publishtrimmedcopyused\DeveImageOptimizerWPF.exe
