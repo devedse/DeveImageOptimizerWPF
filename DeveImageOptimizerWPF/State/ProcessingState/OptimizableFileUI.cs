@@ -1,12 +1,11 @@
 ﻿using DeveCoolLib.Collections;
 using DeveImageOptimizer.State;
-using PropertyChanged;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.ObjectModel;
 
 namespace DeveImageOptimizerWPF.State.ProcessingState
 {
-    [AddINotifyPropertyChangedInterface]
     public class OptimizableFileUI
     {
         public string Path { get; set; }

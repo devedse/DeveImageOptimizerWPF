@@ -1,12 +1,12 @@
-﻿using PropertyChanged;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace DeveImageOptimizerWPF.Helpers
 {
-    [AddINotifyPropertyChangedInterface]
-    public class ScrollViewerExtensionConfig : Freezable
+    [INotifyPropertyChanged]
+    public partial class ScrollViewerExtensionConfig : Freezable
     {
         public bool AlwaysScrollToEnd { get; set; }
 

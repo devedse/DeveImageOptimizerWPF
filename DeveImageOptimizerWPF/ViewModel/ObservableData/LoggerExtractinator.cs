@@ -1,18 +1,17 @@
 ﻿using DeveCoolLib.Streams;
 using DeveImageOptimizerWPF.LogViewerData;
 using IX.Observable;
-using PropertyChanged;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace DeveImageOptimizerWPF.ViewModel.ObservableData
 {
-    [AddINotifyPropertyChangedInterface]
-    public class LoggerExtractinator
+    [INotifyPropertyChanged]
+    public partial class LoggerExtractinator
     {
         private static object _Lockject = new object();
         private static bool _HasInstance = false;

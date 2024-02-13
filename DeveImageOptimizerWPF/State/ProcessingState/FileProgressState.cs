@@ -2,6 +2,7 @@
 using DeveImageOptimizer.State;
 using DeveImageOptimizerWPF.Helpers;
 using DeveImageOptimizerWPF.State.ProcessingState;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -13,14 +14,16 @@ using System.Windows.Data;
 
 namespace DeveImageOptimizerWPF.State.MainWindowState
 {
-    public class FileProgressState : INotifyPropertyChanged, IProgressReporter
+    [INotifyPropertyChanged]
+    public partial class FileProgressState : IProgressReporter
     {
         private readonly string _logPath;
 
         public AutoFilteringObservableCollection<OptimizableFileUI> ProcessedFiles { get; set; } = new AutoFilteringObservableCollection<OptimizableFileUI>();
-        public OptimizableFileUI SelectedProcessedFile { get; set; }
+        [ObservableProperty]
+        public OptimizableFileUI selectedProcessedFile;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly object _logfilelockject = new object();
 
@@ -64,10 +67,10 @@ namespace DeveImageOptimizerWPF.State.MainWindowState
         }
 
         // Create the OnPropertyChanged method to raise the event
-        public virtual void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        //public virtual void OnPropertyChanged(string name)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //}
 
         public Task OptimizableFileProgressUpdated(OptimizableFile optimizableFile)
         {

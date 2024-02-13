@@ -1,6 +1,5 @@
 ﻿using DeveImageOptimizer.FileProcessing;
 using DeveImageOptimizer.ImageOptimization;
-using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -8,7 +7,6 @@ using System.Xml.Serialization;
 namespace DeveImageOptimizerWPF.State.UserSettings
 {
     [Serializable]
-    [AddINotifyPropertyChangedInterface]
     public class UserSettingsData : IChangable, INotifyPropertyChanged
     {
         public string FileOptimizerPath { get; set; }

@@ -2,13 +2,11 @@
 using DeveImageOptimizerWPF.ViewModel.ObservableData;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using PropertyChanged;
 using System;
 using System.Windows.Input;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
-    [AddINotifyPropertyChangedInterface]
     public class ConsoleViewModel : ObservableRecipient
     {
         public LoggerExtractinator LoggerExtractinator { get; set; }

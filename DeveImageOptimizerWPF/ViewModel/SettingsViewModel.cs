@@ -6,7 +6,6 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
-using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +14,6 @@ using System.Windows.Input;
 
 namespace DeveImageOptimizerWPF.ViewModel
 {
-    [AddINotifyPropertyChangedInterface]
     public class SettingsViewModel : ObservableRecipient
     {
         public UserSettingsData UserSettingsData { get; }
