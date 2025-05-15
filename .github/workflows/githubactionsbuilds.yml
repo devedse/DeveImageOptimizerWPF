@@ -62,7 +62,7 @@ jobs:
     - name: Run CodeCov
       uses: codecov/codecov-action@v5
       with:
-        directory: ./DeveLanCacheUI_Backend.Tests/TestResults
+        directory: ./DeveImageOptimizerWPF.Tests/TestResults
         fail_ci_if_error: true # optional (default = false)
         verbose: true # optional (default = false)
       env:
