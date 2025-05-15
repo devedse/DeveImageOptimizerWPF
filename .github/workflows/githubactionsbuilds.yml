@@ -4,32 +4,17 @@ on: push
 
 jobs:
   generate_version_number:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     outputs:
-      build_number: ${{ github.ref == 'refs/heads/master' && steps.buildnumber.outputs.build_number || 1 }}
+      build_number: ${{ steps.buildnumber.outputs.build_number }}
     steps:
     - name: Generate build number
-      if: github.ref == 'refs/heads/master'
       id: buildnumber
-      uses: einaregilsson/build-number@v3
+      uses: onyxmueller/build-tag-number@v1
       with:
         token: ${{secrets.github_token}}
-
-  intellicode:
-    needs: generate_version_number
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0 # We need to fetch the entire Git history in order to verify the authenticity.
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 9.0.x
-    - name: Build with dotnet
-      run: dotnet build DeveImageOptimizerWPF.sln -c Release /p:Version=1.0.${{needs.generate_version_number.outputs.build_number}} # Project needs to build before training a model.
-    - name: Train Intellicode Model
-      uses: microsoft/vs-intellicode@v1
 
   build_windows:
     needs: generate_version_number
@@ -101,7 +86,7 @@ jobs:
         path: DeveImageOptimizerWPF\bin\Release\net9.0-windows\win-x64\publishtrimmedcopyused\DeveImageOptimizerWPF.exe
 
   release_github:
-    needs: [generate_version_number, intellicode, build_windows]
+    needs: [generate_version_number, build_windows]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
@@ -129,7 +114,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release_chocolatey:
-    needs: [intellicode, build_windows, release_github]
+    needs: [build_windows, release_github]
     runs-on: windows-latest
     if: github.ref == 'refs/heads/master'
     steps:
