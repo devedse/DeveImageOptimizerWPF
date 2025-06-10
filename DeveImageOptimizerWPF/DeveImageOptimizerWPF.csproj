@@ -14,8 +14,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DeveCoolLib" Version="1.0.588" />
-		<PackageReference Include="DeveImageOptimizer" Version="1.0.685" />
+		<PackageReference Include="DeveCoolLib" Version="1.0.589" />
+		<PackageReference Include="DeveImageOptimizer" Version="1.0.687" />
 		<PackageReference Include="IX.Observable" Version="1.0.3" />
 		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="ObservableConcurrentQueue" Version="2.0.1" />
