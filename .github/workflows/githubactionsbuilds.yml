@@ -68,19 +68,19 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: DeveImageOptimizerWPF_win-x64
         path: DeveImageOptimizerWPF\bin\Release\net9.0-windows\win-x64\publish\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: DeveImageOptimizerWPF_win-x64_untrimmed
         path: DeveImageOptimizerWPF\bin\Release\net9.0-windows\win-x64\publishuntrimmed\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: DeveImageOptimizerWPF_win-x64_trimlink
         path: DeveImageOptimizerWPF\bin\Release\net9.0-windows\win-x64\publishtrimmedlink\DeveImageOptimizerWPF.exe
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: DeveImageOptimizerWPF_win-x64_trimcopyused
         path: DeveImageOptimizerWPF\bin\Release\net9.0-windows\win-x64\publishtrimmedcopyused\DeveImageOptimizerWPF.exe
